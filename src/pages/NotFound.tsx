@@ -1,10 +1,17 @@
+
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { Home } from "lucide-react";
+import AnimatedCard from "@/components/ui/AnimatedCard";
+import CloudAnimation from "@/components/ui/CloudAnimation";
 
 const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
+    document.title = "404 - Page Not Found | Rifkhan Mohamed";
+    
     console.error(
       "404 Error: User attempted to access non-existent route:",
       location.pathname
@@ -12,15 +19,27 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
+    <ThemeProvider defaultTheme="light">
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center p-4">
+        <CloudAnimation />
+        
+        <AnimatedCard className="glass-card rounded-2xl p-8 max-w-md w-full text-center">
+          <h1 className="text-8xl font-bold text-rifkhan mb-4">404</h1>
+          <h2 className="text-2xl font-bold mb-4">Page Not Found</h2>
+          <p className="text-foreground/70 mb-8">
+            The page you're looking for doesn't exist or has been moved.
+          </p>
+          
+          <a
+            href="/"
+            className="inline-flex items-center justify-center space-x-2 px-6 py-3 bg-rifkhan text-white rounded-lg hover:bg-rifkhan-dark transition-colors"
+          >
+            <Home className="w-4 h-4" />
+            <span>Return Home</span>
+          </a>
+        </AnimatedCard>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 
