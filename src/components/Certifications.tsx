@@ -17,7 +17,7 @@ const certifications: Certification[] = [
     id: "aws-ccp",
     title: "AWS Certified Cloud Practitioner",
     organization: "Amazon Web Services",
-    logo: "https://www.svgrepo.com/show/376356/aws-cloudformation.svg", // Updated AWS logo source
+    logo: "/aws-logo.svg", // Using the same AWS logo path
     date: "2022",
     description: "Fundamental understanding of AWS Cloud services, architecture, security, and cost management."
   },
