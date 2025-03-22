@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
-import { Check, Mail, MapPin, Send } from "lucide-react";
+import { Check, Mail, MapPin, Phone, Send } from "lucide-react";
 
 const Contact = () => {
   const [formState, setFormState] = useState({
@@ -149,10 +149,27 @@ const Contact = () => {
                   <div>
                     <h4 className="font-medium text-foreground">Email</h4>
                     <a
-                      href="mailto:contact@rifkhanmohamed.com"
+                      href="mailto:rifkhan561@gmail.com"
                       className="text-rifkhan hover:text-rifkhan-dark transition-colors"
                     >
-                      contact@rifkhanmohamed.com
+                      rifkhan561@gmail.com
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="bg-rifkhan/10 text-rifkhan p-3 rounded-full">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-foreground">WhatsApp</h4>
+                    <a
+                      href="https://wa.me/94767730555"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-rifkhan hover:text-rifkhan-dark transition-colors"
+                    >
+                      +94 767730555
                     </a>
                   </div>
                 </div>
