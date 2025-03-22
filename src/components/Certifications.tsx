@@ -17,7 +17,7 @@ const certifications: Certification[] = [
     id: "aws-ccp",
     title: "AWS Certified Cloud Practitioner",
     organization: "Amazon Web Services",
-    logo: "https://media.licdn.com/dms/image/v2/C560BAQE0fp2sCqnVLg/company-logo_400_400/company-logo_400_400/0/1738855736997/amazon_web_services_logo?e=1747872000&v=beta&t=dRgdvz2IxhXQ1E7-YcPcbs6NQjMgyGA5iJPBnVva2Go",
+    logo: "https://www.svgrepo.com/show/376356/aws-cloudformation.svg", // Updated AWS logo source
     date: "2022",
     description: "Fundamental understanding of AWS Cloud services, architecture, security, and cost management."
   },
@@ -88,6 +88,7 @@ const Certifications = () => {
                     src={cert.logo}
                     alt={cert.organization}
                     className="w-full h-full object-contain"
+                    loading="lazy"
                   />
                 </div>
                 

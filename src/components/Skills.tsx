@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
 
@@ -12,7 +11,7 @@ interface Skill {
 const skills: Skill[] = [
   {
     name: "AWS",
-    icon: "https://media.licdn.com/dms/image/v2/C560BAQE0fp2sCqnVLg/company-logo_400_400/company-logo_400_400/0/1738855736997/amazon_web_services_logo?e=1747872000&v=beta&t=dRgdvz2IxhXQ1E7-YcPcbs6NQjMgyGA5iJPBnVva2Go",
+    icon: "https://www.svgrepo.com/show/376356/aws-cloudformation.svg",
     proficiency: 95,
     category: "Cloud"
   },
@@ -143,6 +142,7 @@ const Skills = () => {
                     src={skill.icon}
                     alt={skill.name}
                     className="w-8 h-8 object-contain"
+                    loading="lazy"
                   />
                 </div>
                 <div>
