@@ -12,8 +12,8 @@ interface Skill {
 const skills: Skill[] = [
   {
     name: "AWS",
-    icon: "/aws-logo.svg", // Using the same AWS logo path
-    proficiency: 95,
+    icon: "https://media.licdn.com/dms/image/v2/D4E0BAQE0fp2sCqnVLg/company-logo_200_200/company-logo_200_200/0/1738855736997/amazon_web_services_logo?e=1747872000&v=beta&t=OBB7c4L63DkTcjCBbZ_dHE4TjY7XEHFebPTveb2aGqQ", 
+    proficiency: 90,
     category: "Cloud"
   },
   {
@@ -72,7 +72,7 @@ const skills: Skill[] = [
   },
   {
     name: "AWS CloudFormation",
-    icon: "/aws-logo.svg", // Using the same AWS logo path
+    icon: "https://images.seeklogo.com/logo-png/43/2/aws-cloudformation-logo-png_seeklogo-430935.png", // Using the same AWS logo path
     proficiency: 85,
     category: "IaC"
   },

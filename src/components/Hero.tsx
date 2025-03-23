@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
 
 const typewriterTexts = [
-  "AWS DevOps Engineer",
+  "DevOps Engineer",
   "Cloud Infrastructure Expert",
   "AWS Community Builder",
   "Cybersecurity Enthusiast"

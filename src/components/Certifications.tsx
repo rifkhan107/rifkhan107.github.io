@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
 import { Award } from "lucide-react";
@@ -10,6 +9,7 @@ interface Certification {
   logo: string;
   date: string;
   description: string;
+  logoClassName?: string; // Added this property for custom styling
 }
 
 const certifications: Certification[] = [
@@ -17,9 +17,10 @@ const certifications: Certification[] = [
     id: "aws-ccp",
     title: "AWS Certified Cloud Practitioner",
     organization: "Amazon Web Services",
-    logo: "/aws-logo.svg", // Using the same AWS logo path
+    logo: "https://media.licdn.com/dms/image/v2/D4E0BAQE0fp2sCqnVLg/company-logo_200_200/company-logo_200_200/0/1738855736997/amazon_web_services_logo?e=1747872000&v=beta&t=OBB7c4L63DkTcjCBbZ_dHE4TjY7XEHFebPTveb2aGqQ",
     date: "2022",
-    description: "Fundamental understanding of AWS Cloud services, architecture, security, and cost management."
+    description: "Fundamental understanding of AWS Cloud services, architecture, security, and cost management.",
+    logoClassName: "scale-90 p-1" // Adding scaling and padding for the AWS logo
   },
   {
     id: "azure-fundamentals",
@@ -87,7 +88,7 @@ const Certifications = () => {
                   <img
                     src={cert.logo}
                     alt={cert.organization}
-                    className="w-full h-full object-contain"
+                    className={`w-full h-full object-contain ${cert.logoClassName || ""}`}
                     loading="lazy"
                   />
                 </div>
