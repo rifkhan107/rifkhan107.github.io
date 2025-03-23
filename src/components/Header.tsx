@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useTheme } from "@/components/ui/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { Moon, Sun, Menu, X } from "lucide-react";
+import AnimatedRMLogo from "./ui/AnimatedRMLogo";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -40,7 +41,7 @@ const Header = () => {
           href="#home"
           className="text-xl font-medium text-foreground flex items-center space-x-2"
         >
-          <span className="text-rifkhan font-bold">RM</span>
+          <AnimatedRMLogo size={36} />
           <span className="hidden sm:inline-block">Rifkhan Mohamed</span>
         </a>
 
