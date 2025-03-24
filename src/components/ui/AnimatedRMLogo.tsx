@@ -4,6 +4,7 @@ import { useTheme } from "@/components/ui/ThemeProvider";
 
 const AnimatedRMLogo = ({ size = 40 }: { size?: number }) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
   
   useEffect(() => {
@@ -30,71 +31,74 @@ const AnimatedRMLogo = ({ size = 40 }: { size?: number }) => {
             easing: "cubic-bezier(0.4, 0, 0.2, 1)"
           }
         );
+        
+        // Add subtle glow after drawing
+        setTimeout(() => {
+          const color = theme === 'dark' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(30, 144, 255, 0.7)';
+          path.style.filter = `drop-shadow(0 0 2px ${color})`;
+        }, 1500 + (index * 150));
       });
     }
   }, [theme]);
   
   return (
-    <svg 
-      ref={svgRef}
-      width={size} 
-      height={size} 
-      viewBox="0 0 100 100" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-      className="transition-colors duration-300"
+    <div 
+      ref={containerRef}
+      className="relative flex items-center justify-center"
+      style={{ 
+        width: size, 
+        height: size, 
+        perspective: '500px',
+      }}
     >
-      {/* J letter */}
-      <path 
-        d="M25 20H45M35 20V65C35 72.5 30 80 20 80" 
-        stroke="currentColor" 
-        strokeWidth="4" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-        className="text-rifkhan"
-      />
-      
-      {/* M letter */}
-      <path 
-        d="M50 80V40M50 40L65 60L80 40M80 40V80" 
-        stroke="currentColor" 
-        strokeWidth="4" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-        className="text-rifkhan"
-      />
-      
-      {/* R letter */}
-      <path 
-        d="M80 20H100C105 20 110 25 110 30C110 35 105 40 100 40H80V20Z" 
-        stroke="currentColor" 
-        strokeWidth="4" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-        fill="none"
-        className="text-rifkhan"
-      />
-      <path 
-        d="M95 40L110 60" 
-        stroke="currentColor" 
-        strokeWidth="4" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-        className="text-rifkhan"
-      />
-      
-      {/* Decorative circle */}
-      <circle 
-        cx="50" 
-        cy="50" 
-        r="40" 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeDasharray="6 4"
-        className="text-foreground/30"
-      />
-    </svg>
+      <svg 
+        ref={svgRef}
+        width={size} 
+        height={size} 
+        viewBox="0 0 100 100" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg"
+        className="transition-colors duration-300"
+        style={{ transform: 'rotateY(10deg) rotateX(5deg)', transformStyle: 'preserve-3d' }}
+      >
+        {/* R letter */}
+        <path 
+          d="M25 20H45C56 20 65 29 65 40C65 51 56 60 45 60H25V20Z" 
+          stroke={theme === 'dark' ? 'white' : '#1E90FF'} 
+          strokeWidth="4" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+          fill="none"
+        />
+        <path 
+          d="M45 60L65 80" 
+          stroke={theme === 'dark' ? 'white' : '#1E90FF'} 
+          strokeWidth="4" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        />
+        
+        {/* M letter */}
+        <path 
+          d="M50 80V40M50 40L65 60L80 40M80 40V80" 
+          stroke={theme === 'dark' ? 'white' : '#1E90FF'} 
+          strokeWidth="4" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        />
+        
+        {/* Decorative circle */}
+        <circle 
+          cx="50" 
+          cy="50" 
+          r="40" 
+          stroke={theme === 'dark' ? 'rgba(255, 255, 255, 0.3)' : 'rgba(30, 144, 255, 0.3)'} 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeDasharray="6 4"
+        />
+      </svg>
+    </div>
   );
 };
 

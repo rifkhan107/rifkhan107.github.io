@@ -13,10 +13,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em rgba(237, 137, 54, 0.8));
+  filter: drop-shadow(0 0 2em rgba(30, 144, 255, 0.8));
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em rgba(237, 137, 54, 0.8));
+  filter: drop-shadow(0 0 2em rgba(30, 144, 255, 0.8));
 }
 
 @keyframes logo-spin {
@@ -38,17 +38,6 @@
   padding: 2em;
 }
 
-/* Enhanced "Incredibles" style gradients */
-.incredible-gradient {
-  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-}
-
-.incredible-text {
-  background: linear-gradient(45deg, #f97316, #ea580c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .glass-effect {
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.1);
@@ -59,7 +48,7 @@
   color: #888;
 }
 
-/* 3D and Incredibles-themed animations */
+/* 3D animations */
 @keyframes float-3d {
   0% { transform: translateY(0) translateZ(0) rotateX(0) rotateY(0); }
   50% { transform: translateY(-10px) translateZ(20px) rotateX(5deg) rotateY(5deg); }
@@ -67,20 +56,20 @@
 }
 
 @keyframes glow-pulse {
-  0% { filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.7)); }
-  50% { filter: drop-shadow(0 0 15px rgba(249, 115, 22, 1)); }
-  100% { filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.7)); }
+  0% { filter: drop-shadow(0 0 5px rgba(30, 144, 255, 0.7)); }
+  50% { filter: drop-shadow(0 0 15px rgba(30, 144, 255, 1)); }
+  100% { filter: drop-shadow(0 0 5px rgba(30, 144, 255, 0.7)); }
 }
 
-.incredible-shadow {
-  box-shadow: 0 10px 30px -10px rgba(234, 88, 12, 0.5);
+.blue-shadow {
+  box-shadow: 0 10px 30px -10px rgba(30, 144, 255, 0.5);
 }
 
-.incredible-glow {
+.blue-glow {
   animation: glow-pulse 3s infinite ease-in-out;
 }
 
-.incredible-float {
+.float-3d {
   animation: float-3d 6s infinite ease-in-out;
   transform-style: preserve-3d;
 }
