@@ -2,210 +2,134 @@
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "@/components/ui/ThemeProvider";
 
-// Particle component for background effects
-const Particles = ({ count = 20 }: { count?: number }) => {
-  const particles = [];
-  
-  for (let i = 0; i < count; i++) {
-    const x = Math.random() * 100;
-    const y = Math.random() * 100;
-    const scale = 0.2 + Math.random() * 0.8;
-    const duration = 3 + Math.random() * 7;
-    const delay = Math.random() * 5;
-    
-    particles.push(
-      <div 
-        key={i}
-        className="absolute rounded-full bg-rifkhan/40"
-        style={{
-          left: `${x}%`,
-          top: `${y}%`,
-          width: `${scale * 6}px`,
-          height: `${scale * 6}px`,
-          opacity: 0,
-          animation: `particle ${duration}s infinite ${delay}s`
-        }}
-      />
-    );
-  }
-  
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      <style>
-        {`
-        @keyframes particle {
-          0% { 
-            transform: translate(0, 0) scale(0); 
-            opacity: 0;
-          }
-          20% { 
-            opacity: 0.8;
-          }
-          100% { 
-            transform: translate(${Math.random() > 0.5 ? '-' : ''}${10 + Math.random() * 20}px, 
-                               ${Math.random() > 0.5 ? '-' : ''}${10 + Math.random() * 20}px) 
-                               scale(0);
-            opacity: 0;
-          }
-        }
-        `}
-      </style>
-      {particles}
-    </div>
-  );
-};
-
 const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const circleRef = useRef<SVGGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const outerRingRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
   const [animated, setAnimated] = useState(false);
   
+  // Handle 3D mouse movement effect
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!container) return;
+      
+      const rect = container.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      
+      // Calculate the rotation based on mouse position
+      const rotateY = ((mouseX - centerX) / (rect.width / 2)) * 15;
+      const rotateX = ((centerY - mouseY) / (rect.height / 2)) * 15;
+      
+      setRotateX(rotateX);
+      setRotateY(rotateY);
+    };
+    
+    document.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+  
+  // Animation effects
   useEffect(() => {
     const paths = svgRef.current?.querySelectorAll(".logo-path");
-    const circle = circleRef.current;
     const container = containerRef.current;
-    const outerRing = outerRingRef.current;
     
     setAnimated(false);
     
-    if (paths && circle && container && outerRing) {
+    if (paths && container) {
       // Reset all animations
       paths.forEach(path => {
         (path as SVGPathElement).style.filter = "none";
         path.getAnimations().forEach(anim => anim.cancel());
       });
       
-      circle.getAnimations().forEach(anim => anim.cancel());
       container.getAnimations().forEach(anim => anim.cancel());
-      outerRing.getAnimations().forEach(anim => anim.cancel());
       
-      // Initial reveal animation for the container
+      // Initial reveal animation
       container.animate(
         [
-          { opacity: 0, transform: 'scale(0.8)' },
-          { opacity: 1, transform: 'scale(1)' }
+          { opacity: 0, transform: 'scale(0.8) translateZ(-100px)' },
+          { opacity: 1, transform: 'scale(1) translateZ(0)' }
         ],
         {
-          duration: 800,
+          duration: 1200,
           fill: "forwards",
           easing: "cubic-bezier(0.34, 1.56, 0.64, 1)"
         }
       );
       
-      // Floating animation for the entire logo
-      container.animate(
-        [
-          { transform: 'translateY(0px)' },
-          { transform: 'translateY(-6px)' },
-          { transform: 'translateY(0px)' }
-        ],
-        {
-          duration: 6000,
-          iterations: Infinity,
-          easing: "ease-in-out"
-        }
-      );
-      
-      // Animate the inner circle with rotation
-      circle.animate(
-        [
-          { transform: 'rotate(0deg)' },
-          { transform: 'rotate(360deg)' }
-        ],
-        {
-          duration: 20000,
-          iterations: Infinity,
-          easing: 'linear'
-        }
-      );
-      
-      // Animate the outer ring with reverse rotation and pulse
-      outerRing.animate(
-        [
-          { transform: 'rotate(0deg) scale(1)', opacity: 0.7 },
-          { transform: 'rotate(-180deg) scale(1.05)', opacity: 1 },
-          { transform: 'rotate(-360deg) scale(1)', opacity: 0.7 }
-        ],
-        {
-          duration: 15000,
-          iterations: Infinity,
-          easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
-        }
-      );
-      
-      // Sequential path animations with enhanced effects
+      // Sequential path animations with enhanced 3D effects
       paths.forEach((path, index) => {
         const length = (path as SVGPathElement).getTotalLength();
         
         // Reset path
         (path as SVGPathElement).style.strokeDasharray = `${length}`;
         (path as SVGPathElement).style.strokeDashoffset = `${length}`;
-        (path as SVGPathElement).style.opacity = "0";
         
-        // Path opacity animation
-        path.animate(
-          [
-            { opacity: 0 },
-            { opacity: 1 }
-          ],
-          {
-            duration: 500,
-            delay: index * 150,
-            fill: "forwards",
-            easing: "ease-out"
-          }
-        );
-        
-        // Initial drawing animation with more vibrant colors
+        // Drawing animation
         const drawAnimation = path.animate(
           [
-            { strokeDashoffset: length, stroke: theme === 'dark' ? '#60A5FA' : '#1E40AF' },
-            { strokeDashoffset: 0, stroke: theme === 'dark' ? '#93C5FD' : '#2563EB' }
+            { 
+              strokeDashoffset: length, 
+              stroke: theme === 'dark' ? '#f97316' : '#ea580c',
+              transform: 'translateZ(-20px)'
+            },
+            { 
+              strokeDashoffset: 0, 
+              stroke: theme === 'dark' ? '#f97316' : '#ea580c',
+              transform: 'translateZ(20px)'
+            }
           ],
           {
-            duration: 1800,
-            delay: index * 150,
+            duration: 1200,
+            delay: index * 200,
             fill: "forwards",
-            easing: "cubic-bezier(0.34, 1.56, 0.64, 1)"
+            easing: "cubic-bezier(0.17, 0.67, 0.83, 0.67)"
           }
         );
         
         // Add effects after the path is drawn
         drawAnimation.onfinish = () => {
-          // Stronger glow effect based on theme
+          // Apply orange incredible glow effect
           (path as SVGPathElement).style.filter = theme === 'dark' 
-            ? "drop-shadow(0 0 4px rgba(147, 197, 253, 0.9))" 
-            : "drop-shadow(0 0 4px rgba(37, 99, 235, 0.9))";
+            ? "drop-shadow(0 0 6px rgba(249, 115, 22, 0.9))" 
+            : "drop-shadow(0 0 6px rgba(234, 88, 12, 0.9))";
           
-          // Pulse animation with varying sizes based on index
-          const pulseSize = 0.2 + (index * 0.1);
+          // 3D extrusion effect with pulsing
           path.animate(
             [
               { 
-                strokeWidth: '4', 
+                transform: 'translateZ(15px)', 
                 filter: theme === 'dark' 
-                  ? 'drop-shadow(0 0 3px rgba(147, 197, 253, 0.7))' 
-                  : 'drop-shadow(0 0 3px rgba(37, 99, 235, 0.7))'
+                  ? 'drop-shadow(0 0 4px rgba(249, 115, 22, 0.8))' 
+                  : 'drop-shadow(0 0 4px rgba(234, 88, 12, 0.8))'
               },
               { 
-                strokeWidth: `${4 + pulseSize}`, 
+                transform: 'translateZ(30px)', 
                 filter: theme === 'dark' 
-                  ? 'drop-shadow(0 0 6px rgba(147, 197, 253, 1))' 
-                  : 'drop-shadow(0 0 6px rgba(37, 99, 235, 1))'
+                  ? 'drop-shadow(0 0 10px rgba(249, 115, 22, 1))' 
+                  : 'drop-shadow(0 0 10px rgba(234, 88, 12, 1))'
               },
               { 
-                strokeWidth: '4', 
+                transform: 'translateZ(15px)', 
                 filter: theme === 'dark' 
-                  ? 'drop-shadow(0 0 3px rgba(147, 197, 253, 0.7))' 
-                  : 'drop-shadow(0 0 3px rgba(37, 99, 235, 0.7))'
+                  ? 'drop-shadow(0 0 4px rgba(249, 115, 22, 0.8))' 
+                  : 'drop-shadow(0 0 4px rgba(234, 88, 12, 0.8))'
               }
             ],
             {
-              duration: 2000 + (index * 200),
-              delay: index * 100,
+              duration: 3000,
               iterations: Infinity,
               easing: "ease-in-out"
             }
@@ -218,52 +142,36 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
   }, [theme]);
   
   return (
-    <div className="relative flex items-center justify-center overflow-hidden" style={{ width: size, height: size }}>
-      {/* Outer glowing ring */}
+    <div 
+      ref={containerRef}
+      className="relative flex items-center justify-center overflow-visible"
+      style={{ 
+        width: size, 
+        height: size, 
+        perspective: '800px',
+        transformStyle: 'preserve-3d'
+      }}
+    >
+      {/* 3D floating element with mouse-based rotation */}
       <div 
-        ref={outerRingRef}
-        className={`absolute rounded-full border-4 ${theme === 'dark' ? 'border-blue-400/50' : 'border-blue-600/50'}`}
+        className="w-full h-full flex items-center justify-center transition-transform duration-300"
         style={{ 
-          width: size * 1.1, 
-          height: size * 1.1,
-          filter: "blur(2px)"
-        }}
-      />
-      
-      {/* Radial background */}
-      <div 
-        className={`absolute rounded-full ${
-          theme === 'dark' 
-            ? 'bg-gradient-to-r from-blue-500/20 to-blue-400/20' 
-            : 'bg-gradient-to-r from-blue-600/20 to-blue-500/20'
-        }`}
-        style={{ 
-          width: size, 
-          height: size,
-          animation: "pulse 4s infinite ease-in-out",
-          opacity: animated ? 0.8 : 0
+          transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
+          transformStyle: 'preserve-3d'
         }}
       >
-        <style>
-          {`
-          @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.5; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-            100% { transform: scale(0.95); opacity: 0.5; }
-          }
-          `}
-        </style>
-      </div>
-      
-      {/* Particles effect */}
-      <Particles count={15} />
-      
-      {/* Main logo container */}
-      <div 
-        ref={containerRef}
-        className="relative flex items-center justify-center"
-        style={{ opacity: 0 }}
-      >
+        {/* Orange glow backdrop - "Incredibles" style */}
+        <div 
+          className="absolute rounded-full incredible-gradient opacity-70"
+          style={{ 
+            width: size * 0.85, 
+            height: size * 0.85,
+            filter: 'blur(15px)',
+            transform: 'translateZ(-20px)'
+          }}
+        />
+        
+        {/* Main SVG logo */}
         <svg 
           ref={svgRef}
           width={size} 
@@ -271,13 +179,22 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
           viewBox="0 0 120 100" 
           fill="none" 
           xmlns="http://www.w3.org/2000/svg"
-          className="relative z-10"
+          className="relative"
+          style={{ transform: 'translateZ(10px)' }}
         >
+          {/* Background gradient circle */}
+          <circle 
+            cx="65" 
+            cy="50" 
+            r="42" 
+            className="incredible-gradient opacity-20"
+          />
+          
           {/* J letter */}
           <path 
             d="M25 20V65C25 73 30 80 40 80H50" 
-            stroke={theme === 'dark' ? "#93C5FD" : "#2563EB"}
-            strokeWidth="4" 
+            stroke="#ea580c"
+            strokeWidth="6" 
             strokeLinecap="round" 
             strokeLinejoin="round"
             className="logo-path"
@@ -286,8 +203,8 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
           {/* M letter */}
           <path 
             d="M45 80V40M45 40L60 65L75 40M75 40V80" 
-            stroke={theme === 'dark' ? "#93C5FD" : "#2563EB"}
-            strokeWidth="4" 
+            stroke="#ea580c"
+            strokeWidth="6" 
             strokeLinecap="round" 
             strokeLinejoin="round"
             className="logo-path"
@@ -296,89 +213,70 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
           {/* R letter */}
           <path 
             d="M80 20H95C106 20 115 29 115 40C115 51 106 60 95 60H80V20Z" 
-            stroke={theme === 'dark' ? "#93C5FD" : "#2563EB"}
-            strokeWidth="4" 
+            stroke="#ea580c"
+            strokeWidth="6" 
             strokeLinecap="round" 
             strokeLinejoin="round"
             className="logo-path"
           />
           <path 
             d="M95 60L115 80" 
-            stroke={theme === 'dark' ? "#93C5FD" : "#2563EB"}
-            strokeWidth="4" 
+            stroke="#ea580c"
+            strokeWidth="6" 
             strokeLinecap="round" 
             strokeLinejoin="round"
             className="logo-path"
           />
           
-          {/* Animated decorative elements */}
-          <g ref={circleRef}>
-            <circle 
-              cx="65" 
-              cy="50" 
-              r="44" 
-              stroke={theme === 'dark' ? "#60A5FA" : "#3B82F6"}
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeDasharray="6 4"
-            />
-            
-            {/* Cardinal dots with glow */}
-            <circle cx="65" cy="6" r="2" fill={theme === 'dark' ? "#60A5FA" : "#3B82F6"}>
-              <animate attributeName="r" values="2;3;2" dur="3s" repeatCount="indefinite" />
-            </circle>
-            <circle cx="109" cy="50" r="2" fill={theme === 'dark' ? "#60A5FA" : "#3B82F6"}>
-              <animate attributeName="r" values="2;3;2" dur="3s" begin="0.75s" repeatCount="indefinite" />
-            </circle>
-            <circle cx="65" cy="94" r="2" fill={theme === 'dark' ? "#60A5FA" : "#3B82F6"}>
-              <animate attributeName="r" values="2;3;2" dur="3s" begin="1.5s" repeatCount="indefinite" />
-            </circle>
-            <circle cx="21" cy="50" r="2" fill={theme === 'dark' ? "#60A5FA" : "#3B82F6"}>
-              <animate attributeName="r" values="2;3;2" dur="3s" begin="2.25s" repeatCount="indefinite" />
-            </circle>
-            
-            {/* Small decorative lines */}
-            <line x1="65" y1="15" x2="65" y2="25" stroke={theme === 'dark' ? "#60A5FA" : "#3B82F6"} strokeWidth="1.5" opacity="0.6">
-              <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" repeatCount="indefinite" />
-            </line>
-            <line x1="100" y1="50" x2="90" y2="50" stroke={theme === 'dark' ? "#60A5FA" : "#3B82F6"} strokeWidth="1.5" opacity="0.6">
-              <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" begin="1s" repeatCount="indefinite" />
-            </line>
-            <line x1="65" y1="85" x2="65" y2="75" stroke={theme === 'dark' ? "#60A5FA" : "#3B82F6"} strokeWidth="1.5" opacity="0.6">
-              <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" begin="2s" repeatCount="indefinite" />
-            </line>
-            <line x1="30" y1="50" x2="40" y2="50" stroke={theme === 'dark' ? "#60A5FA" : "#3B82F6"} strokeWidth="1.5" opacity="0.6">
-              <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" begin="3s" repeatCount="indefinite" />
-            </line>
-          </g>
+          {/* Decorative elements - more Incredibles style */}
+          <circle 
+            cx="65" 
+            cy="50" 
+            r="44" 
+            stroke="#f97316" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeDasharray="2 6"
+            opacity="0.6"
+          />
           
-          {/* Light burst effect */}
-          <circle cx="65" cy="50" r="0" fill={`url(#burst${theme}Gradient)`} opacity="0">
+          {/* Cardinal points with Incredibles glow */}
+          <circle cx="65" cy="6" r="3" fill="#f97316" className="animate-pulse-slow">
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="109" cy="50" r="3" fill="#f97316" className="animate-pulse-slow">
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" begin="1s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="65" cy="94" r="3" fill="#f97316" className="animate-pulse-slow">
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" begin="2s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="21" cy="50" r="3" fill="#f97316" className="animate-pulse-slow">
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" begin="3s" repeatCount="indefinite" />
+          </circle>
+          
+          {/* Energy burst effect - Incredibles style */}
+          <circle cx="65" cy="50" r="0" fill="url(#burstGradient)" opacity="0">
             <animate 
               attributeName="r" 
-              values="0;60;0" 
-              dur="4s" 
-              begin="1s"
+              values="0;70;0" 
+              dur="5s" 
+              begin="0.5s"
               repeatCount="indefinite" 
             />
             <animate 
               attributeName="opacity" 
-              values="0;0.4;0" 
-              dur="4s"
-              begin="1s" 
+              values="0;0.6;0" 
+              dur="5s"
+              begin="0.5s" 
               repeatCount="indefinite" 
             />
           </circle>
           
-          {/* Gradient definitions for both themes */}
+          {/* Incredibles-style gradient definitions */}
           <defs>
-            <radialGradient id="burstdarkGradient" cx="0.5" cy="0.5" r="0.5">
-              <stop offset="0%" stopColor="#60A5FA" />
-              <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
-            </radialGradient>
-            <radialGradient id="burstlightGradient" cx="0.5" cy="0.5" r="0.5">
-              <stop offset="0%" stopColor="#2563EB" />
-              <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
+            <radialGradient id="burstGradient" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stopColor="#f97316" />
+              <stop offset="100%" stopColor="#ea580c" stopOpacity="0" />
             </radialGradient>
           </defs>
         </svg>

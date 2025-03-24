@@ -38,7 +38,7 @@
   padding: 2em;
 }
 
-/* Added "Incredibles" style gradients */
+/* Enhanced "Incredibles" style gradients */
 .incredible-gradient {
   background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
 }
@@ -57,4 +57,30 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* 3D and Incredibles-themed animations */
+@keyframes float-3d {
+  0% { transform: translateY(0) translateZ(0) rotateX(0) rotateY(0); }
+  50% { transform: translateY(-10px) translateZ(20px) rotateX(5deg) rotateY(5deg); }
+  100% { transform: translateY(0) translateZ(0) rotateX(0) rotateY(0); }
+}
+
+@keyframes glow-pulse {
+  0% { filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.7)); }
+  50% { filter: drop-shadow(0 0 15px rgba(249, 115, 22, 1)); }
+  100% { filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.7)); }
+}
+
+.incredible-shadow {
+  box-shadow: 0 10px 30px -10px rgba(234, 88, 12, 0.5);
+}
+
+.incredible-glow {
+  animation: glow-pulse 3s infinite ease-in-out;
+}
+
+.incredible-float {
+  animation: float-3d 6s infinite ease-in-out;
+  transform-style: preserve-3d;
 }

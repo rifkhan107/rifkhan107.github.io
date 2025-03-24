@@ -49,7 +49,7 @@ const CloudAnimation = ({ className }: CloudAnimationProps) => {
       speed: number;
     }[] = [];
     
-    // Load tech icons
+    // Only use recognized DevOps tools/icons
     const iconSources = [
       '/aws-icon.svg', 
       '/docker-icon.svg', 
@@ -68,17 +68,17 @@ const CloudAnimation = ({ className }: CloudAnimationProps) => {
         icons.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: 25 + Math.random() * 30, // Increased size
+          size: 35 + Math.random() * 40, // Increased size further
           rotation: Math.random() * Math.PI * 2,
           rotationSpeed: (Math.random() * 0.02) - 0.01,
           image: img,
-          opacity: 0.2 + Math.random() * 0.3, // Increased opacity
+          opacity: 0.4 + Math.random() * 0.4, // Increased opacity
           speed: 0.2 + Math.random() * 0.4
         });
       };
     });
     
-    // Create cloud particles
+    // Create cloud particles with Incredibles-themed colors
     const createParticles = () => {
       const particleCount = Math.floor(window.innerWidth / 15);
       const isDark = theme === 'dark';
@@ -87,12 +87,12 @@ const CloudAnimation = ({ className }: CloudAnimationProps) => {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          radius: Math.random() * 10 + 3, // Increased size
+          radius: Math.random() * 15 + 5, // Increased size
           color: isDark 
-            ? `rgba(255, 255, 255, ${Math.random() * 0.15 + 0.05})` 
-            : `rgba(14, 165, 233, ${Math.random() * 0.12 + 0.05})`, // Brighter in light mode
+            ? `rgba(249, 115, 22, ${Math.random() * 0.15 + 0.05})` // Orange in dark mode
+            : `rgba(234, 88, 12, ${Math.random() * 0.15 + 0.08})`, // Darker orange in light mode
           speed: Math.random() * 0.7 + 0.2,
-          opacity: isDark ? (0.1 + Math.random() * 0.4) : (0.15 + Math.random() * 0.45),
+          opacity: isDark ? (0.2 + Math.random() * 0.5) : (0.25 + Math.random() * 0.5),
           blur: Math.random() * 6
         });
       }
@@ -100,27 +100,24 @@ const CloudAnimation = ({ className }: CloudAnimationProps) => {
     
     createParticles();
     
-    // Animation loop with color transitions for light mode
+    // Animation loop with Incredibles-themed effects
     const animate = () => {
       requestAnimationFrame(animate);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Draw cloud particles with special effects for light mode
+      // Draw cloud particles with Incredibles theme
       particles.forEach((particle) => {
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         
-        // Light mode has color transitions
-        if (theme === 'light') {
-          // Create gradient effect particles in light mode
-          const gradientIndex = Math.floor(Date.now() / 5000) % 3;
-          if (gradientIndex === 0) {
-            particle.color = `rgba(14, 165, 233, ${particle.opacity})`;
-          } else if (gradientIndex === 1) {
-            particle.color = `rgba(79, 70, 229, ${particle.opacity})`;
-          } else {
-            particle.color = `rgba(16, 185, 129, ${particle.opacity})`;
-          }
+        // Create gradient effect particles inspired by Incredibles
+        const gradientIndex = Math.floor(Date.now() / 5000) % 3;
+        if (gradientIndex === 0) {
+          particle.color = `rgba(234, 88, 12, ${particle.opacity})`; // Darker orange
+        } else if (gradientIndex === 1) {
+          particle.color = `rgba(249, 115, 22, ${particle.opacity})`; // Brighter orange
+        } else {
+          particle.color = `rgba(251, 146, 60, ${particle.opacity})`; // Light orange
         }
         
         ctx.fillStyle = particle.color;
