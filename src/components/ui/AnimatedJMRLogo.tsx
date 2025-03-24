@@ -159,11 +159,11 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
           }
         );
         
-        // Initial drawing animation
+        // Initial drawing animation with more vibrant colors
         const drawAnimation = path.animate(
           [
-            { strokeDashoffset: length, stroke: '#2563EB' },
-            { strokeDashoffset: 0, stroke: '#3B82F6' }
+            { strokeDashoffset: length, stroke: theme === 'dark' ? '#60A5FA' : '#1E40AF' },
+            { strokeDashoffset: 0, stroke: theme === 'dark' ? '#93C5FD' : '#2563EB' }
           ],
           {
             duration: 1800,
@@ -175,16 +175,33 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
         
         // Add effects after the path is drawn
         drawAnimation.onfinish = () => {
-          // Glow effect
-          (path as SVGPathElement).style.filter = "drop-shadow(0 0 3px rgba(59, 130, 246, 0.7))";
+          // Stronger glow effect based on theme
+          (path as SVGPathElement).style.filter = theme === 'dark' 
+            ? "drop-shadow(0 0 4px rgba(147, 197, 253, 0.9))" 
+            : "drop-shadow(0 0 4px rgba(37, 99, 235, 0.9))";
           
           // Pulse animation with varying sizes based on index
           const pulseSize = 0.2 + (index * 0.1);
           path.animate(
             [
-              { strokeWidth: '4', filter: 'drop-shadow(0 0 2px rgba(59, 130, 246, 0.5))' },
-              { strokeWidth: `${4 + pulseSize}`, filter: 'drop-shadow(0 0 5px rgba(59, 130, 246, 0.8))' },
-              { strokeWidth: '4', filter: 'drop-shadow(0 0 2px rgba(59, 130, 246, 0.5))' }
+              { 
+                strokeWidth: '4', 
+                filter: theme === 'dark' 
+                  ? 'drop-shadow(0 0 3px rgba(147, 197, 253, 0.7))' 
+                  : 'drop-shadow(0 0 3px rgba(37, 99, 235, 0.7))'
+              },
+              { 
+                strokeWidth: `${4 + pulseSize}`, 
+                filter: theme === 'dark' 
+                  ? 'drop-shadow(0 0 6px rgba(147, 197, 253, 1))' 
+                  : 'drop-shadow(0 0 6px rgba(37, 99, 235, 1))'
+              },
+              { 
+                strokeWidth: '4', 
+                filter: theme === 'dark' 
+                  ? 'drop-shadow(0 0 3px rgba(147, 197, 253, 0.7))' 
+                  : 'drop-shadow(0 0 3px rgba(37, 99, 235, 0.7))'
+              }
             ],
             {
               duration: 2000 + (index * 200),
@@ -205,7 +222,7 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
       {/* Outer glowing ring */}
       <div 
         ref={outerRingRef}
-        className="absolute rounded-full border-4 border-rifkhan/30"
+        className={`absolute rounded-full border-4 ${theme === 'dark' ? 'border-blue-400/50' : 'border-blue-600/50'}`}
         style={{ 
           width: size * 1.1, 
           height: size * 1.1,
@@ -215,7 +232,11 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
       
       {/* Radial background */}
       <div 
-        className="absolute rounded-full bg-gradient-to-r from-rifkhan/10 to-rifkhan/10"
+        className={`absolute rounded-full ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-r from-blue-500/20 to-blue-400/20' 
+            : 'bg-gradient-to-r from-blue-600/20 to-blue-500/20'
+        }`}
         style={{ 
           width: size, 
           height: size,
@@ -255,7 +276,7 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
           {/* J letter */}
           <path 
             d="M25 20V65C25 73 30 80 40 80H50" 
-            stroke="#3B82F6" 
+            stroke={theme === 'dark' ? "#93C5FD" : "#2563EB"}
             strokeWidth="4" 
             strokeLinecap="round" 
             strokeLinejoin="round"
@@ -265,7 +286,7 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
           {/* M letter */}
           <path 
             d="M45 80V40M45 40L60 65L75 40M75 40V80" 
-            stroke="#3B82F6" 
+            stroke={theme === 'dark' ? "#93C5FD" : "#2563EB"}
             strokeWidth="4" 
             strokeLinecap="round" 
             strokeLinejoin="round"
@@ -275,7 +296,7 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
           {/* R letter */}
           <path 
             d="M80 20H95C106 20 115 29 115 40C115 51 106 60 95 60H80V20Z" 
-            stroke="#3B82F6" 
+            stroke={theme === 'dark' ? "#93C5FD" : "#2563EB"}
             strokeWidth="4" 
             strokeLinecap="round" 
             strokeLinejoin="round"
@@ -283,7 +304,7 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
           />
           <path 
             d="M95 60L115 80" 
-            stroke="#3B82F6" 
+            stroke={theme === 'dark' ? "#93C5FD" : "#2563EB"}
             strokeWidth="4" 
             strokeLinecap="round" 
             strokeLinejoin="round"
@@ -296,43 +317,43 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
               cx="65" 
               cy="50" 
               r="44" 
-              stroke="#3B82F6" 
+              stroke={theme === 'dark' ? "#60A5FA" : "#3B82F6"}
               strokeWidth="2" 
               strokeLinecap="round" 
               strokeDasharray="6 4"
             />
             
             {/* Cardinal dots with glow */}
-            <circle cx="65" cy="6" r="2" fill="#3B82F6">
+            <circle cx="65" cy="6" r="2" fill={theme === 'dark' ? "#60A5FA" : "#3B82F6"}>
               <animate attributeName="r" values="2;3;2" dur="3s" repeatCount="indefinite" />
             </circle>
-            <circle cx="109" cy="50" r="2" fill="#3B82F6">
+            <circle cx="109" cy="50" r="2" fill={theme === 'dark' ? "#60A5FA" : "#3B82F6"}>
               <animate attributeName="r" values="2;3;2" dur="3s" begin="0.75s" repeatCount="indefinite" />
             </circle>
-            <circle cx="65" cy="94" r="2" fill="#3B82F6">
+            <circle cx="65" cy="94" r="2" fill={theme === 'dark' ? "#60A5FA" : "#3B82F6"}>
               <animate attributeName="r" values="2;3;2" dur="3s" begin="1.5s" repeatCount="indefinite" />
             </circle>
-            <circle cx="21" cy="50" r="2" fill="#3B82F6">
+            <circle cx="21" cy="50" r="2" fill={theme === 'dark' ? "#60A5FA" : "#3B82F6"}>
               <animate attributeName="r" values="2;3;2" dur="3s" begin="2.25s" repeatCount="indefinite" />
             </circle>
             
             {/* Small decorative lines */}
-            <line x1="65" y1="15" x2="65" y2="25" stroke="#3B82F6" strokeWidth="1.5" opacity="0.6">
+            <line x1="65" y1="15" x2="65" y2="25" stroke={theme === 'dark' ? "#60A5FA" : "#3B82F6"} strokeWidth="1.5" opacity="0.6">
               <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" repeatCount="indefinite" />
             </line>
-            <line x1="100" y1="50" x2="90" y2="50" stroke="#3B82F6" strokeWidth="1.5" opacity="0.6">
+            <line x1="100" y1="50" x2="90" y2="50" stroke={theme === 'dark' ? "#60A5FA" : "#3B82F6"} strokeWidth="1.5" opacity="0.6">
               <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" begin="1s" repeatCount="indefinite" />
             </line>
-            <line x1="65" y1="85" x2="65" y2="75" stroke="#3B82F6" strokeWidth="1.5" opacity="0.6">
+            <line x1="65" y1="85" x2="65" y2="75" stroke={theme === 'dark' ? "#60A5FA" : "#3B82F6"} strokeWidth="1.5" opacity="0.6">
               <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" begin="2s" repeatCount="indefinite" />
             </line>
-            <line x1="30" y1="50" x2="40" y2="50" stroke="#3B82F6" strokeWidth="1.5" opacity="0.6">
+            <line x1="30" y1="50" x2="40" y2="50" stroke={theme === 'dark' ? "#60A5FA" : "#3B82F6"} strokeWidth="1.5" opacity="0.6">
               <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" begin="3s" repeatCount="indefinite" />
             </line>
           </g>
           
           {/* Light burst effect */}
-          <circle cx="65" cy="50" r="0" fill="url(#burstGradient)" opacity="0">
+          <circle cx="65" cy="50" r="0" fill={`url(#burst${theme}Gradient)`} opacity="0">
             <animate 
               attributeName="r" 
               values="0;60;0" 
@@ -349,10 +370,14 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
             />
           </circle>
           
-          {/* Gradient definitions */}
+          {/* Gradient definitions for both themes */}
           <defs>
-            <radialGradient id="burstGradient" cx="0.5" cy="0.5" r="0.5">
+            <radialGradient id="burstdarkGradient" cx="0.5" cy="0.5" r="0.5">
               <stop offset="0%" stopColor="#60A5FA" />
+              <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="burstlightGradient" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stopColor="#2563EB" />
               <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
             </radialGradient>
           </defs>

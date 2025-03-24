@@ -54,7 +54,11 @@ const CloudAnimation = ({ className }: CloudAnimationProps) => {
       '/aws-icon.svg', 
       '/docker-icon.svg', 
       '/kubernetes-icon.svg',
-      '/terraform-icon.svg'
+      '/terraform-icon.svg',
+      '/github-icon.svg',
+      '/grafana-icon.svg',
+      '/prometheus-icon.svg',
+      '/gcp-icon.svg'
     ];
     
     iconSources.forEach(src => {
@@ -64,11 +68,11 @@ const CloudAnimation = ({ className }: CloudAnimationProps) => {
         icons.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: 15 + Math.random() * 20,
+          size: 25 + Math.random() * 30, // Increased size
           rotation: Math.random() * Math.PI * 2,
           rotationSpeed: (Math.random() * 0.02) - 0.01,
           image: img,
-          opacity: 0.1 + Math.random() * 0.2,
+          opacity: 0.2 + Math.random() * 0.3, // Increased opacity
           speed: 0.2 + Math.random() * 0.4
         });
       };
@@ -83,26 +87,42 @@ const CloudAnimation = ({ className }: CloudAnimationProps) => {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          radius: Math.random() * 8 + 2,
-          color: isDark ? `rgba(255, 255, 255, ${Math.random() * 0.1 + 0.05})` : `rgba(14, 165, 233, ${Math.random() * 0.08 + 0.03})`,
+          radius: Math.random() * 10 + 3, // Increased size
+          color: isDark 
+            ? `rgba(255, 255, 255, ${Math.random() * 0.15 + 0.05})` 
+            : `rgba(14, 165, 233, ${Math.random() * 0.12 + 0.05})`, // Brighter in light mode
           speed: Math.random() * 0.7 + 0.2,
-          opacity: 0.1 + Math.random() * 0.4,
-          blur: Math.random() * 5
+          opacity: isDark ? (0.1 + Math.random() * 0.4) : (0.15 + Math.random() * 0.45),
+          blur: Math.random() * 6
         });
       }
     };
     
     createParticles();
     
-    // Animation loop
+    // Animation loop with color transitions for light mode
     const animate = () => {
       requestAnimationFrame(animate);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Draw cloud particles
+      // Draw cloud particles with special effects for light mode
       particles.forEach((particle) => {
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        
+        // Light mode has color transitions
+        if (theme === 'light') {
+          // Create gradient effect particles in light mode
+          const gradientIndex = Math.floor(Date.now() / 5000) % 3;
+          if (gradientIndex === 0) {
+            particle.color = `rgba(14, 165, 233, ${particle.opacity})`;
+          } else if (gradientIndex === 1) {
+            particle.color = `rgba(79, 70, 229, ${particle.opacity})`;
+          } else {
+            particle.color = `rgba(16, 185, 129, ${particle.opacity})`;
+          }
+        }
+        
         ctx.fillStyle = particle.color;
         if (particle.blur > 0) {
           ctx.shadowBlur = particle.blur;
