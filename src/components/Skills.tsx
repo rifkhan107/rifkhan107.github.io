@@ -23,12 +23,6 @@ const skills: Skill[] = [
     category: "Cloud"
   },
   {
-    name: "GCP",
-    icon: "https://www.svgrepo.com/show/303651/google-cloud-logo.svg",
-    proficiency: 75,
-    category: "Cloud"
-  },
-  {
     name: "Terraform",
     icon: "https://www.svgrepo.com/show/354447/terraform-icon.svg",
     proficiency: 90,
@@ -47,26 +41,8 @@ const skills: Skill[] = [
     category: "Containerization"
   },
   {
-    name: "Helm",
-    icon: "https://www.svgrepo.com/show/374613/helm.svg",
-    proficiency: 80,
-    category: "Container Orchestration"
-  },
-  {
     name: "Jenkins",
     icon: "https://www.svgrepo.com/show/373699/jenkins.svg",
-    proficiency: 80,
-    category: "CI/CD"
-  },
-  {
-    name: "GitHub Actions",
-    icon: "https://www.svgrepo.com/show/512317/github-142.svg",
-    proficiency: 85,
-    category: "CI/CD"
-  },
-  {
-    name: "GitLab CI/CD",
-    icon: "https://www.svgrepo.com/show/452230/gitlab.svg",
     proficiency: 80,
     category: "CI/CD"
   },
@@ -95,14 +71,8 @@ const skills: Skill[] = [
     category: "Programming"
   },
   {
-    name: "Bash",
-    icon: "https://www.svgrepo.com/show/353478/bash-icon.svg",
-    proficiency: 85,
-    category: "Programming"
-  },
-  {
     name: "AWS CloudFormation",
-    icon: "https://images.seeklogo.com/logo-png/43/2/aws-cloudformation-logo-png_seeklogo-430935.png",
+    icon: "https://images.seeklogo.com/logo-png/43/2/aws-cloudformation-logo-png_seeklogo-430935.png", // Using the same AWS logo path
     proficiency: 85,
     category: "IaC"
   },
@@ -111,30 +81,6 @@ const skills: Skill[] = [
     icon: "https://www.svgrepo.com/show/448271/azure-devops.svg",
     proficiency: 85,
     category: "CI/CD"
-  },
-  {
-    name: "Prometheus",
-    icon: "https://www.svgrepo.com/show/354219/prometheus.svg",
-    proficiency: 80,
-    category: "Monitoring"
-  },
-  {
-    name: "Grafana",
-    icon: "https://www.svgrepo.com/show/354926/grafana.svg",
-    proficiency: 80,
-    category: "Monitoring"
-  },
-  {
-    name: "Datadog",
-    icon: "https://www.svgrepo.com/show/373571/datadog.svg",
-    proficiency: 75,
-    category: "Monitoring"
-  },
-  {
-    name: "ELK Stack",
-    icon: "https://www.svgrepo.com/show/373575/elastic.svg",
-    proficiency: 75,
-    category: "Monitoring"
   }
 ];
 

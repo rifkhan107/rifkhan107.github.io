@@ -1,6 +1,6 @@
 
 import { Heart } from "lucide-react";
-import AnimatedJMRLogo from "./ui/AnimatedJMRLogo";
+import AnimatedRMLogo from "./ui/AnimatedRMLogo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,9 +10,9 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0 flex items-center">
-            <AnimatedJMRLogo size={32} />
+            <AnimatedRMLogo size={32} />
             <div className="ml-2">
-              <span className="font-whisper text-xl md:text-2xl">Rifkhan Mohamed</span>
+              <span className="font-great-vibes text-xl md:text-2xl">Rifkhan Mohamed</span>
               <p className="text-sm text-foreground/60 mt-1">
                 DevOps Engineer • AWS Specialist • Cloud Architect
               </p>
