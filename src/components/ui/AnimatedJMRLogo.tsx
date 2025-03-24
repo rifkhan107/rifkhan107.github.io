@@ -31,7 +31,8 @@ const Particles = ({ count = 20 }: { count?: number }) => {
   
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <style jsx>{`
+      <style>
+        {`
         @keyframes particle {
           0% { 
             transform: translate(0, 0) scale(0); 
@@ -47,7 +48,8 @@ const Particles = ({ count = 20 }: { count?: number }) => {
             opacity: 0;
           }
         }
-      `}</style>
+        `}
+      </style>
       {particles}
     </div>
   );
@@ -221,13 +223,15 @@ const AnimatedJMRLogo = ({ size = 40 }: { size?: number }) => {
           opacity: animated ? 0.8 : 0
         }}
       >
-        <style jsx>{`
+        <style>
+          {`
           @keyframes pulse {
             0% { transform: scale(0.95); opacity: 0.5; }
             50% { transform: scale(1.05); opacity: 0.8; }
             100% { transform: scale(0.95); opacity: 0.5; }
           }
-        `}</style>
+          `}
+        </style>
       </div>
       
       {/* Particles effect */}
