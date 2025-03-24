@@ -63,7 +63,7 @@ const Hero = () => {
             </div>
           </div>
           
-          <h1 className="stagger-item stagger-delay-2 text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
+          <h1 className="stagger-item stagger-delay-2 text-4xl md:text-5xl lg:text-6xl font-whisper text-foreground mb-4">
             Rifkhan Mohamed
           </h1>
           
