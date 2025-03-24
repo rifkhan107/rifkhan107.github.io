@@ -44,18 +44,9 @@ const AnimatedRMLogo = ({ size = 40 }: { size?: number }) => {
       xmlns="http://www.w3.org/2000/svg"
       className="transition-colors duration-300"
     >
-      {/* R letter */}
+      {/* J letter */}
       <path 
-        d="M30 20H50C61 20 70 29 70 40C70 51 61 60 50 60H30V20Z" 
-        stroke="currentColor" 
-        strokeWidth="4" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-        fill="none"
-        className="text-rifkhan"
-      />
-      <path 
-        d="M50 60L70 80" 
+        d="M25 20H45M35 20V65C35 72.5 30 80 20 80" 
         stroke="currentColor" 
         strokeWidth="4" 
         strokeLinecap="round" 
@@ -65,7 +56,26 @@ const AnimatedRMLogo = ({ size = 40 }: { size?: number }) => {
       
       {/* M letter */}
       <path 
-        d="M30 80V40M30 40L50 65L70 40M70 40V80" 
+        d="M50 80V40M50 40L65 60L80 40M80 40V80" 
+        stroke="currentColor" 
+        strokeWidth="4" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+        className="text-rifkhan"
+      />
+      
+      {/* R letter */}
+      <path 
+        d="M80 20H100C105 20 110 25 110 30C110 35 105 40 100 40H80V20Z" 
+        stroke="currentColor" 
+        strokeWidth="4" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+        fill="none"
+        className="text-rifkhan"
+      />
+      <path 
+        d="M95 40L110 60" 
         stroke="currentColor" 
         strokeWidth="4" 
         strokeLinecap="round" 

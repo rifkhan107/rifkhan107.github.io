@@ -76,7 +76,9 @@ export default {
 			},
 			fontFamily: {
 				sans: ['SF Pro Display', 'Inter', 'sans-serif'],
-				mono: ['SF Mono', 'monospace']
+				mono: ['SF Mono', 'monospace'],
+				'great-vibes': ['Great Vibes', 'cursive'],
+				'whisper': ['Whisper', 'cursive']
 			},
 			keyframes: {
 				'accordion-down': {
