@@ -14,7 +14,7 @@ const Footer = () => {
             <div className="ml-2">
               <span className="font-great-vibes text-xl md:text-2xl">Rifkhan Mohamed</span>
               <p className="text-sm text-foreground/60 mt-1">
-                DevOps Engineer • AWS Specialist • Cloud Architect
+                DevOps Engineer • Cloud Specialist • Cloud Engineer
               </p>
             </div>
           </div>

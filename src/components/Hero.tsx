@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
@@ -63,7 +62,7 @@ const Hero = () => {
             </div>
           </div>
           
-          <h1 className="stagger-item stagger-delay-2 text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
+          <h1 className="stagger-item stagger-delay-2 text-4xl md:text-5xl lg:text-6xl font-whisper text-foreground mb-4">
             Rifkhan Mohamed
           </h1>
           
@@ -96,7 +95,7 @@ const Hero = () => {
           
           <div className="stagger-item stagger-delay-6 flex items-center justify-center space-x-6">
             <a
-              href="https://github.com/rifkhanmd"
+              href="https://github.com/rifkhan107"
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground/70 hover:text-rifkhan transition-colors"
@@ -107,7 +106,7 @@ const Hero = () => {
               </svg>
             </a>
             <a
-              href="https://linkedin.com/in/rifkhanmd"
+              href="https://www.linkedin.com/in/rifkhan107/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground/70 hover:text-rifkhan transition-colors"
@@ -118,7 +117,7 @@ const Hero = () => {
               </svg>
             </a>
             <a
-              href="https://twitter.com/rifkhanmd"
+              href="https://x.com/rifkhan107"
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground/70 hover:text-rifkhan transition-colors"

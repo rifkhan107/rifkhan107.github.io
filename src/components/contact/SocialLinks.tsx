@@ -5,7 +5,7 @@ const SocialLinks = () => {
   return (
     <div className="flex items-center justify-around">
       <a
-        href="https://linkedin.com/in/rifkhanmd"
+        href="https://www.linkedin.com/in/rifkhan107/"
         target="_blank"
         rel="noopener noreferrer"
         className="p-3 bg-rifkhan/10 rounded-full text-rifkhan hover:bg-rifkhan hover:text-white transition-colors"
@@ -17,7 +17,7 @@ const SocialLinks = () => {
       </a>
       
       <a
-        href="https://github.com/rifkhanmd"
+        href="https://github.com/rifkhan107"
         target="_blank"
         rel="noopener noreferrer"
         className="p-3 bg-rifkhan/10 rounded-full text-rifkhan hover:bg-rifkhan hover:text-white transition-colors"
@@ -29,7 +29,7 @@ const SocialLinks = () => {
       </a>
       
       <a
-        href="https://twitter.com/rifkhanmd"
+        href="https://x.com/rifkhan107"
         target="_blank"
         rel="noopener noreferrer"
         className="p-3 bg-rifkhan/10 rounded-full text-rifkhan hover:bg-rifkhan hover:text-white transition-colors"

@@ -48,7 +48,7 @@ const ContactInfo = () => {
         </div>
         <div>
           <h4 className="font-medium text-foreground">Location</h4>
-          <p className="text-foreground/70">Colombo, Sri Lanka 🇱🇰</p>
+          <p className="text-foreground/70">Kinniya, Sri Lanka </p>
         </div>
       </div>
     </div>

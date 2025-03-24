@@ -20,7 +20,7 @@ const Education = () => {
               <div className="flex-shrink-0 flex items-center justify-center">
                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-accent flex items-center justify-center">
                   <img 
-                    src="https://upload.wikimedia.org/wikipedia/en/1/1d/University_of_Sunderland_Logo.svg" 
+                    src="https://media.licdn.com/dms/image/v2/D4E0BAQHL8zslbtFUsA/company-logo_200_200/company-logo_200_200/0/1695376347016/university_of_sunderland_logo?e=1748476800&v=beta&t=bb9WiM0aaRqEhKvFQcECF5mw5mETQgZsUlBu0se4wP8" 
                     alt="University of Sunderland" 
                     className="w-20 h-20 md:w-28 md:h-28 object-contain"
                   />

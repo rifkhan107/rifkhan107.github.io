@@ -21,7 +21,7 @@ const Volunteering = () => {
               <div className="flex-shrink-0 flex items-center justify-center">
                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-[#232F3E] flex items-center justify-center p-4">
                   <img 
-                    src="/aws-logo.svg" 
+                    src="https://media.licdn.com/dms/image/v2/D4E0BAQE0fp2sCqnVLg/company-logo_200_200/company-logo_200_200/0/1738855736997/amazon_web_services_logo?e=1747872000&v=beta&t=OBB7c4L63DkTcjCBbZ_dHE4TjY7XEHFebPTveb2aGqQ" 
                     alt="Amazon Web Services" 
                     className="w-full h-full object-contain"
                   />
@@ -95,7 +95,7 @@ const Volunteering = () => {
               <div className="flex-shrink-0 flex items-center justify-center">
                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-[#1A1A1A] flex items-center justify-center p-4">
                   <img 
-                    src="https://assets.tryhackme.com/img/THMlogo.png" 
+                    src="https://media.licdn.com/dms/image/v2/D4D0BAQEvTOLlndHruA/company-logo_200_200/company-logo_200_200/0/1736063677224?e=1748476800&v=beta&t=4EdmqmmRbGnyiKVjGerO29CdYTmoBwWWbmVBKP21_HM" 
                     alt="TryHackMe" 
                     className="w-full h-full object-contain"
                   />

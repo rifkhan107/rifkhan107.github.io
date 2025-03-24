@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
 
@@ -12,14 +11,20 @@ interface Skill {
 const skills: Skill[] = [
   {
     name: "AWS",
-    icon: "https://media.licdn.com/dms/image/v2/D4E0BAQE0fp2sCqnVLg/company-logo_200_200/company-logo_200_200/0/1738855736997/amazon_web_services_logo?e=1747872000&v=beta&t=OBB7c4L63DkTcjCBbZ_dHE4TjY7XEHFebPTveb2aGqQ", 
+    icon: "https://www.svgrepo.com/show/448266/aws.svg", 
     proficiency: 90,
     category: "Cloud"
   },
   {
     name: "Azure",
-    icon: "https://media.licdn.com/dms/image/v2/C560BAQE88xCsONDULQ/company-logo_400_400/company-logo_400_400/0/1630652622688/microsoft_logo?e=1747872000&v=beta&t=ha3UxF4odT1qORIUw3dJQnwtivbJzsUzweaRuY2gLiA",
+    icon: "https://www.svgrepo.com/show/452062/microsoft.svg",
     proficiency: 85,
+    category: "Cloud"
+  },
+  {
+    name: "GCP",
+    icon: "https://www.svgrepo.com/show/448223/gcp.svg",
+    proficiency: 75,
     category: "Cloud"
   },
   {
@@ -41,8 +46,26 @@ const skills: Skill[] = [
     category: "Containerization"
   },
   {
+    name: "Helm",
+    icon: "https://www.svgrepo.com/show/448231/helm.svg",
+    proficiency: 80,
+    category: "Container Orchestration"
+  },
+  {
     name: "Jenkins",
     icon: "https://www.svgrepo.com/show/373699/jenkins.svg",
+    proficiency: 80,
+    category: "CI/CD"
+  },
+  {
+    name: "GitHub Actions",
+    icon: "https://www.svgrepo.com/show/512317/github-142.svg",
+    proficiency: 85,
+    category: "CI/CD"
+  },
+  {
+    name: "GitLab CI/CD",
+    icon: "https://www.svgrepo.com/show/353785/gitlab.svg", 
     proficiency: 80,
     category: "CI/CD"
   },
@@ -71,8 +94,14 @@ const skills: Skill[] = [
     category: "Programming"
   },
   {
+    name: "Bash",
+    icon: "https://www.svgrepo.com/show/353478/bash-icon.svg",
+    proficiency: 85,
+    category: "Programming"
+  },
+  {
     name: "AWS CloudFormation",
-    icon: "https://images.seeklogo.com/logo-png/43/2/aws-cloudformation-logo-png_seeklogo-430935.png", // Using the same AWS logo path
+    icon: "https://images.seeklogo.com/logo-png/43/2/aws-cloudformation-logo-png_seeklogo-430935.png",
     proficiency: 85,
     category: "IaC"
   },
@@ -81,6 +110,30 @@ const skills: Skill[] = [
     icon: "https://www.svgrepo.com/show/448271/azure-devops.svg",
     proficiency: 85,
     category: "CI/CD"
+  },
+  {
+    name: "Prometheus",
+    icon: "https://www.svgrepo.com/show/354219/prometheus.svg",
+    proficiency: 80,
+    category: "Monitoring"
+  },
+  {
+    name: "Grafana",
+    icon: "https://www.svgrepo.com/show/448228/grafana.svg",
+    proficiency: 80,
+    category: "Monitoring"
+  },
+  {
+    name: "Datadog",
+    icon: "https://www.svgrepo.com/show/448219/datadog.svg",
+    proficiency: 75,
+    category: "Monitoring"
+  },
+  {
+    name: "ELK Stack",
+    icon: "https://www.svgrepo.com/show/373575/elastic.svg",
+    proficiency: 75,
+    category: "Monitoring"
   }
 ];
 
