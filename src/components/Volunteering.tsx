@@ -84,6 +84,19 @@ const Volunteering = () => {
                       </li>
                     </ul>
                   </div>
+                  <div className="mt-4">
+                    <a 
+                      href="https://aws.amazon.com/developer/community/community-builders/community-builders-directory/?cb-cards.sort-by=item.additionalFields.cbName&cb-cards.sort-order=asc&awsf.builder-category=*all&awsf.location=*all&awsf.year=*all&cb-cards.q=rifkhan&cb-cards.q_operator=AND"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-rifkhan hover:underline"
+                    >
+                      <span className="font-medium">View AWS Community Builder Profile</span>
+                      <svg className="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 010-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
