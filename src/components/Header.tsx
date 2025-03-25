@@ -41,8 +41,8 @@ const Header = () => {
           href="#home"
           className="text-xl font-medium text-foreground flex items-center space-x-2"
         >
-          <AnimatedRMLogo size={36} />
-          <span className="hidden sm:inline-block font-rockybilly text-2xl">Rifkhan Mohamed</span>
+          <AnimatedRMLogo size={70} />
+          <span className="hidden sm:inline-block font-rockybilly text-5xl">Mohamed Rifkhan</span>
         </a>
 
         {/* Desktop Navigation */}

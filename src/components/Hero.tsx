@@ -56,14 +56,14 @@ const Hero = () => {
             <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white/30 shadow-lg mx-auto">
               <img
                 src="https://media.licdn.com/dms/image/v2/D5603AQFtzTaTDhe01Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731918146600?e=1747872000&v=beta&t=H9JtYahQr8sqbCEifAr4kjEbV3OWZ_cRlNIqX01WPxA"
-                alt="Rifkhan Mohamed"
+                alt="Mohamed Rifkhan"
                 className="w-full h-full object-cover"
               />
             </div>
           </div>
           
-          <h1 className="stagger-item stagger-delay-2 text-4xl md:text-5xl lg:text-6xl font-whisper text-foreground mb-4">
-            Rifkhan Mohamed
+          <h1 className="stagger-item stagger-delay-2 text-4xl md:text-5xl lg:text-6xl font-rockybilly text-foreground mb-4">
+              Mohamed Rifkhan
           </h1>
           
           <div className="stagger-item stagger-delay-3 h-10 mb-6">

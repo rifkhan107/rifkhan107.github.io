@@ -10,9 +10,9 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0 flex items-center">
-            <AnimatedRMLogo size={32} />
+            <AnimatedRMLogo size={50} />
             <div className="ml-2">
-              <span className="font-rockybilly text-xl md:text-2xl">Rifkhan Mohamed</span>
+              <span className="font-rockybilly text-xl md:text-3xl">Mohamed Rifkhan</span>
               <p className="text-sm text-foreground/60 mt-1">
                 DevOps Engineer • Cloud Specialist • Cloud Engineer
               </p>
