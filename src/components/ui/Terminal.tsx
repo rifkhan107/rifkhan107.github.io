@@ -78,7 +78,8 @@ const Terminal = ({
         </div>
       </div>
       
-      <style jsx>{`
+      <style>
+        {`
         .terminal-container {
           backdrop-filter: blur(16px);
           transition: all 0.3s ease;
@@ -94,7 +95,8 @@ const Terminal = ({
             min-height: 200px;
           }
         }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };
