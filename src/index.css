@@ -1,6 +1,4 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Whisper&display=swap');
-@import url('https://www.fontspace.com/api/fontspace/cdn?ApiKey=1fstw4h5t4gprr84n7v42jrheqgvcec6&name=rockybilly-font-f46103');
 
 @tailwind base;
 @tailwind components;
@@ -8,7 +6,7 @@
 
 @font-face {
   font-family: 'Rockybilly';
-  src: url('https://www.fontspace.com/api/fontspace/cdn?ApiKey=1fstw4h5t4gprr84n7v42jrheqgvcec6&name=rockybilly-font-f46103') format('woff2');
+  src: url('/fonts/rockybilly.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
