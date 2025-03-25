@@ -12,7 +12,7 @@ const Footer = () => {
           <div className="mb-4 md:mb-0 flex items-center">
             <AnimatedRMLogo size={32} />
             <div className="ml-2">
-              <span className="font-angel text-xl md:text-2xl">Rifkhan Mohamed</span>
+              <span className="font-rockybilly text-xl md:text-2xl">Rifkhan Mohamed</span>
               <p className="text-sm text-foreground/60 mt-1">
                 DevOps Engineer • Cloud Specialist • Cloud Engineer
               </p>

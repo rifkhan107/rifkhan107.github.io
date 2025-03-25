@@ -10,17 +10,22 @@ type Command = {
 
 const defaultCommands: Command[] = [
   { 
-    command: "cat profile.json",
-    output: `{
-  "name": "Rifkhan Mohamed",
-  "role": "DevOps Engineer",
-  "skills": ["AWS", "Terraform", "Kubernetes", "Docker", "CI/CD"],
-  "interests": ["Cloud Infrastructure", "Automation", "Cybersecurity"]
-}`,
-    delay: 1000
+    command: "whoami",
+    output: "rifkhan",
+    delay: 800
   },
   { 
-    command: "ls -la projects/",
+    command: "cat /etc/profile",
+    output: `# DevOps Engineer Profile
+export FULL_NAME="Rifkhan Mohamed"
+export ROLE="DevOps Engineer & Cloud Architect"
+export LOCATION="Sri Lanka"
+export SKILLS=("AWS" "Terraform" "Docker" "Kubernetes" "CI/CD" "DevSecOps")
+export CERTIFICATIONS=("AWS Solutions Architect" "AWS DevOps Engineer")`,
+    delay: 1500
+  },
+  { 
+    command: "ls -la ~/projects/",
     output: `total 64
 drwxr-xr-x  11 rifkhan staff   352 Jun 10 09:45 .
 drwxr-xr-x   5 rifkhan staff   160 Jun 10 09:45 ..
@@ -28,7 +33,7 @@ drwxr-xr-x  14 rifkhan staff   448 Jun 10 09:45 aws-infrastructure
 drwxr-xr-x  12 rifkhan staff   384 Jun 10 09:45 cloud-automation
 drwxr-xr-x  10 rifkhan staff   320 Jun 10 09:45 devops-pipeline
 drwxr-xr-x  13 rifkhan staff   416 Jun 10 09:45 kubernetes-cluster`,
-    delay: 1500
+    delay: 1200
   },
   { 
     command: "aws --version",
@@ -41,8 +46,39 @@ drwxr-xr-x  13 rifkhan staff   416 Jun 10 09:45 kubernetes-cluster`,
     delay: 800
   },
   { 
+    command: "kubectl version --client",
+    output: `Client Version: v1.28.4
+Kustomize Version: v5.0.4`,
+    delay: 1000
+  },
+  { 
+    command: "cd ~/projects/aws-infrastructure && ls",
+    output: `cloudformation
+terraform
+cdk
+serverless
+lambda-functions
+ecs-configs
+eks-manifests`,
+    delay: 1200
+  },
+  { 
+    command: "grep -r \"AWS\" ~/certifications/",
+    output: `~/certifications/professional.txt:AWS Certified Solutions Architect - Professional
+~/certifications/associate.txt:AWS Certified Developer - Associate
+~/certifications/associate.txt:AWS Certified SysOps Administrator - Associate
+~/certifications/specialty.txt:AWS Certified Security - Specialty`,
+    delay: 1400
+  },
+  { 
+    command: "ps aux | grep docker",
+    output: `rifkhan   1234  0.5  0.8 5857064 142460 ?      Ssl  08:32   0:12 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+rifkhan   2345  0.2  0.5 4217064  85460 ?       Ssl  08:32   0:07 docker-compose up -d`,
+    delay: 900
+  },
+  { 
     command: "echo $PATH",
-    output: "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/aws/bin",
+    output: "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/aws/bin:/home/rifkhan/.local/bin",
     delay: 600
   }
 ];

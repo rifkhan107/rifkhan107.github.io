@@ -79,7 +79,8 @@ export default {
 				mono: ['SF Mono', 'monospace'],
 				'great-vibes': ['Great Vibes', 'cursive'],
 				'whisper': ['Whisper', 'cursive'],
-				'angel': ['Angel', 'cursive']
+				'angel': ['Angel', 'cursive'],
+				'rockybilly': ['Rockybilly', 'cursive']
 			},
 			keyframes: {
 				'accordion-down': {

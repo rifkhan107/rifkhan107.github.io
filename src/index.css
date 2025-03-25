@@ -1,13 +1,14 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Whisper&display=swap');
-@import url('https://www.fontspace.com/api/fontspace/cdn?ApiKey=1fstw4h5t4gprr84n7v42jrheqgvcec6&name=angel-3-font-f106371');
+@import url('https://www.fontspace.com/api/fontspace/cdn?ApiKey=1fstw4h5t4gprr84n7v42jrheqgvcec6&name=rockybilly-font-f46103');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Angel';
-  src: url('https://www.fontspace.com/api/fontspace/cdn?ApiKey=1fstw4h5t4gprr84n7v42jrheqgvcec6&name=angel-3-font-f106371') format('woff2');
+  font-family: 'Rockybilly';
+  src: url('https://www.fontspace.com/api/fontspace/cdn?ApiKey=1fstw4h5t4gprr84n7v42jrheqgvcec6&name=rockybilly-font-f46103') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
