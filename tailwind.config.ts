@@ -78,7 +78,8 @@ export default {
 				sans: ['SF Pro Display', 'Inter', 'sans-serif'],
 				mono: ['SF Mono', 'monospace'],
 				'great-vibes': ['Great Vibes', 'cursive'],
-				'whisper': ['Whisper', 'cursive']
+				'whisper': ['Whisper', 'cursive'],
+				'angel': ['Angel', 'cursive']
 			},
 			keyframes: {
 				'accordion-down': {

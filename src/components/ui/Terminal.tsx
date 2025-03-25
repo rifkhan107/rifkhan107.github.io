@@ -1,51 +1,68 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTheme } from "@/components/ui/ThemeProvider";
+
+type Command = {
+  command: string;
+  output: string;
+  delay?: number;
+};
+
+const defaultCommands: Command[] = [
+  { 
+    command: "cat profile.json",
+    output: `{
+  "name": "Rifkhan Mohamed",
+  "role": "DevOps Engineer",
+  "skills": ["AWS", "Terraform", "Kubernetes", "Docker", "CI/CD"],
+  "interests": ["Cloud Infrastructure", "Automation", "Cybersecurity"]
+}`,
+    delay: 1000
+  },
+  { 
+    command: "ls -la projects/",
+    output: `total 64
+drwxr-xr-x  11 rifkhan staff   352 Jun 10 09:45 .
+drwxr-xr-x   5 rifkhan staff   160 Jun 10 09:45 ..
+drwxr-xr-x  14 rifkhan staff   448 Jun 10 09:45 aws-infrastructure
+drwxr-xr-x  12 rifkhan staff   384 Jun 10 09:45 cloud-automation
+drwxr-xr-x  10 rifkhan staff   320 Jun 10 09:45 devops-pipeline
+drwxr-xr-x  13 rifkhan staff   416 Jun 10 09:45 kubernetes-cluster`,
+    delay: 1500
+  },
+  { 
+    command: "aws --version",
+    output: "aws-cli/2.15.32 Python/3.11.6 Darwin/23.4.0 exe/x86_64 prompt/off",
+    delay: 800
+  },
+  { 
+    command: "terraform --version",
+    output: "Terraform v1.7.4\non darwin_amd64",
+    delay: 800
+  },
+  { 
+    command: "echo $PATH",
+    output: "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/aws/bin",
+    delay: 600
+  }
+];
 
 const Terminal = ({ 
   children,
-  title = "rifkhan@aws:~$" 
+  title = "rifkhan@aws:~$",
+  commands = defaultCommands
 }: { 
-  children: React.ReactNode,
-  title?: string 
+  children?: React.ReactNode;
+  title?: string;
+  commands?: Command[];
 }) => {
   const { theme } = useTheme();
-  const [typedContent, setTypedContent] = useState('');
-  const [contentToType, setContentToType] = useState('');
+  const [displayedContent, setDisplayedContent] = useState('');
+  const [currentCommandIndex, setCurrentCommandIndex] = useState(0);
+  const [isTypingCommand, setIsTypingCommand] = useState(true);
+  const [isShowingOutput, setIsShowingOutput] = useState(false);
   const [cursorVisible, setCursorVisible] = useState(true);
-  
-  // Convert children to string content for typing effect
-  useEffect(() => {
-    if (typeof children === 'string') {
-      setContentToType(children);
-    } else if (Array.isArray(children)) {
-      const content = children
-        .map(child => 
-          typeof child === 'string' 
-            ? child 
-            : ''
-        )
-        .join('');
-      setContentToType(content);
-    }
-  }, [children]);
-  
-  // Typing effect
-  useEffect(() => {
-    if (!contentToType) return;
-    
-    let currentIndex = 0;
-    const typingInterval = setInterval(() => {
-      if (currentIndex < contentToType.length) {
-        setTypedContent(prev => prev + contentToType[currentIndex]);
-        currentIndex++;
-      } else {
-        clearInterval(typingInterval);
-      }
-    }, 30); // Typing speed
-    
-    return () => clearInterval(typingInterval);
-  }, [contentToType]);
+  const [initialContent] = useState(typeof children === 'string' ? children : '');
   
   // Blinking cursor effect
   useEffect(() => {
@@ -55,6 +72,88 @@ const Terminal = ({
     
     return () => clearInterval(cursorInterval);
   }, []);
+  
+  // Initial content typing effect
+  useEffect(() => {
+    if (!initialContent) return;
+    
+    let position = 0;
+    const typingInterval = setInterval(() => {
+      if (position < initialContent.length) {
+        setDisplayedContent(initialContent.substring(0, position + 1));
+        position++;
+      } else {
+        clearInterval(typingInterval);
+        setTimeout(() => {
+          setCurrentCommandIndex(0);
+          setIsTypingCommand(true);
+        }, 1000);
+      }
+    }, 30);
+    
+    return () => clearInterval(typingInterval);
+  }, [initialContent]);
+  
+  // Command typing and output display logic
+  const typeCommand = useCallback(() => {
+    if (currentCommandIndex >= commands.length) return;
+    
+    const currentCommand = commands[currentCommandIndex];
+    let commandPosition = 0;
+    
+    setIsTypingCommand(true);
+    setIsShowingOutput(false);
+    
+    const typingInterval = setInterval(() => {
+      if (commandPosition < currentCommand.command.length) {
+        setDisplayedContent(prev => 
+          prev + (commandPosition === 0 ? '\n' + title + ' ' : '') + 
+          currentCommand.command.charAt(commandPosition)
+        );
+        commandPosition++;
+      } else {
+        clearInterval(typingInterval);
+        setIsTypingCommand(false);
+        
+        // Show command output after a delay
+        setTimeout(() => {
+          setIsShowingOutput(true);
+          setDisplayedContent(prev => prev + '\n' + currentCommand.output);
+          
+          // Move to next command after delay
+          const delay = currentCommand.delay || 1000;
+          setTimeout(() => {
+            setCurrentCommandIndex(prev => prev + 1);
+            setIsTypingCommand(true);
+          }, delay);
+        }, 500);
+      }
+    }, 80); // Typing speed
+    
+    return () => clearInterval(typingInterval);
+  }, [currentCommandIndex, commands, title]);
+  
+  // Trigger typing of next command
+  useEffect(() => {
+    if (!isTypingCommand || currentCommandIndex >= commands.length) return;
+    
+    const typingTimeout = setTimeout(() => {
+      typeCommand();
+    }, 500);
+    
+    return () => clearTimeout(typingTimeout);
+  }, [currentCommandIndex, isTypingCommand, typeCommand, commands]);
+  
+  // Loop back to the beginning when all commands are completed
+  useEffect(() => {
+    if (currentCommandIndex >= commands.length) {
+      const resetTimeout = setTimeout(() => {
+        setCurrentCommandIndex(0);
+      }, 3000);
+      
+      return () => clearTimeout(resetTimeout);
+    }
+  }, [currentCommandIndex, commands.length]);
   
   return (
     <div className="terminal-container rounded-lg overflow-hidden border border-foreground/10 shadow-lg">
@@ -73,7 +172,7 @@ const Terminal = ({
         theme === 'dark' ? 'bg-black text-green-400' : 'bg-gray-900 text-green-400'
       }`}>
         <div className="whitespace-pre-line">
-          {typedContent}
+          {displayedContent}
           <span className={`cursor ${cursorVisible ? 'opacity-100' : 'opacity-0'}`}>▮</span>
         </div>
       </div>

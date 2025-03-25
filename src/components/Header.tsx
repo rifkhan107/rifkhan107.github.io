@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useTheme } from "@/components/ui/ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -41,7 +42,7 @@ const Header = () => {
           className="text-xl font-medium text-foreground flex items-center space-x-2"
         >
           <AnimatedRMLogo size={36} />
-          <span className="hidden sm:inline-block">Rifkhan Mohamed</span>
+          <span className="hidden sm:inline-block font-angel text-2xl">Rifkhan Mohamed</span>
         </a>
 
         {/* Desktop Navigation */}
