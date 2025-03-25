@@ -1,8 +1,27 @@
 
 import AnimatedCard from "@/components/ui/AnimatedCard";
+import Terminal from "@/components/ui/Terminal";
 import { Cloud, Globe, User } from "lucide-react";
 
 const About = () => {
+  const terminalContent = `# About Rifkhan Mohamed
+  
+> DevOps Engineer specializing in AWS cloud services
+> Based in Sri Lanka 🇱🇰
+
+My journey in technology began with a BSc (Hons) in Network Systems Engineering from the University of Sunderland, where I developed a strong foundation in network architecture and systems design.
+
+With expertise in cloud infrastructure, CI/CD pipelines, and DevSecOps practices, I help organizations build, deploy, and manage scalable applications in the cloud.
+
+I'm passionate about sharing knowledge with the wider community as an AWS Community Builder and active participant in cybersecurity initiatives through TryHackMe.
+
+# Skills
+- AWS Cloud Services
+- Docker & Kubernetes
+- Terraform & CloudFormation
+- CI/CD Pipeline Automation
+- DevSecOps Practices`;
+
   return (
     <section
       id="about"
@@ -15,27 +34,13 @@ const About = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-          <AnimatedCard className="glass-card rounded-2xl p-8 lg:p-10 flex flex-col justify-center">
-            <h3 className="text-2xl font-bold mb-6 text-foreground">My Background</h3>
-            <div className="space-y-4 text-foreground/80">
-              <p>
-                I'm a DevOps Engineer specializing in AWS cloud services based in Sri Lanka 🇱🇰. 
-                With expertise in cloud infrastructure, CI/CD pipelines, and DevSecOps practices,
-                I help organizations build, deploy, and manage scalable applications in the cloud.
-              </p>
-              <p>
-                My journey in technology began with a BSc (Hons) in Network Systems Engineering 
-                from the University of Sunderland, where I developed a strong foundation in 
-                network architecture and systems design.
-              </p>
-              <p>
-                I'm passionate about sharing knowledge with the wider community as an AWS Community 
-                Builder and active participant in cybersecurity initiatives through TryHackMe.
-              </p>
-            </div>
+          <AnimatedCard className="glass-card rounded-2xl p-8 lg:p-10 flex flex-col justify-center order-2 md:order-1">
+            <Terminal>
+              {terminalContent}
+            </Terminal>
           </AnimatedCard>
           
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 order-1 md:order-2">
             <AnimatedCard className="glass-card rounded-2xl p-6 flex items-start space-x-4 transition-all hover:translate-x-1">
               <div className="rounded-full bg-rifkhan/10 p-3 text-rifkhan">
                 <Cloud className="w-6 h-6" />

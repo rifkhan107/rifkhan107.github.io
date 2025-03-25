@@ -72,13 +72,13 @@ const Experience = () => {
 
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-            {/* Experience tabs */}
+            {/* Experience tabs - Fixed mobile view */}
             <div className="md:col-span-4">
-              <div className="flex flex-row md:flex-col overflow-x-auto md:overflow-x-visible space-x-4 md:space-x-0 md:space-y-2 p-1">
+              <div className="flex flex-row md:flex-col overflow-x-auto md:overflow-x-visible space-x-4 md:space-x-0 md:space-y-2 p-1 pb-4">
                 {experiences.map((exp) => (
                   <button
                     key={exp.id}
-                    className={`p-4 text-left rounded-lg transition-all flex items-center space-x-3 whitespace-nowrap ${
+                    className={`p-4 text-left rounded-lg transition-all flex-shrink-0 flex items-center space-x-3 ${
                       activeExperience === exp.id
                         ? "bg-white dark:bg-black/20 shadow-md"
                         : "hover:bg-white/50 dark:hover:bg-white/5"
@@ -88,17 +88,17 @@ const Experience = () => {
                     <img
                       src={exp.logo}
                       alt={exp.company}
-                      className="w-10 h-10 rounded-full object-cover"
+                      className="w-10 h-10 rounded-full object-cover flex-shrink-0"
                     />
-                    <div>
-                      <h3 className={`font-medium ${
+                    <div className="min-w-0">
+                      <h3 className={`font-medium truncate ${
                         activeExperience === exp.id
                           ? "text-rifkhan"
                           : "text-foreground/70"
                       }`}>
                         {exp.company}
                       </h3>
-                      <p className="text-sm text-foreground/60">{exp.period}</p>
+                      <p className="text-sm text-foreground/60 truncate">{exp.period}</p>
                     </div>
                   </button>
                 ))}
