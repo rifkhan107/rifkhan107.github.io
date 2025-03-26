@@ -223,6 +223,7 @@ const Terminal = ({
         .terminal-content {
           min-height: 250px;
           max-height: 50vh;
+          background-color: rgba(0, 0, 0, 0.85);
         }
         
         @media (max-width: 768px) {

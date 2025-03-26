@@ -22,12 +22,49 @@ const InteractiveSkills = ({ skills, selectedCategory, className }: InteractiveS
     if (!containerRef.current) return;
     
     const skillElements = containerRef.current.querySelectorAll('.skill-item');
+    const progressElements = containerRef.current.querySelectorAll('.skill-progress');
+    const percentageElements = containerRef.current.querySelectorAll('.skill-percentage');
     
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-skills');
+            
+            // Find the progress and percentage elements for this skill
+            const skillItem = entry.target as HTMLElement;
+            const progressBar = skillItem.querySelector('.skill-progress') as HTMLElement;
+            const percentageText = skillItem.querySelector('.skill-percentage') as HTMLElement;
+            
+            if (progressBar && percentageText) {
+              const targetWidth = progressBar.style.getPropertyValue('--target-width');
+              const percentValue = parseInt(targetWidth);
+              
+              // Animate the progress bar
+              progressBar.style.width = '0%';
+              setTimeout(() => {
+                progressBar.style.width = targetWidth;
+              }, 100);
+              
+              // Animate the percentage counter
+              let startValue = 0;
+              const duration = 1500;
+              const increment = Math.ceil(percentValue / (duration / 20));
+              
+              const updateCounter = () => {
+                startValue += increment;
+                if (startValue > percentValue) {
+                  startValue = percentValue;
+                }
+                percentageText.textContent = startValue.toString();
+                
+                if (startValue < percentValue) {
+                  requestAnimationFrame(updateCounter);
+                }
+              };
+              
+              requestAnimationFrame(updateCounter);
+            }
           }
         });
       },

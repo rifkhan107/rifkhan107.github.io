@@ -12,6 +12,7 @@ import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CloudAnimation from "@/components/ui/CloudAnimation";
+import ModelViewer from "@/components/effects/3DModelViewer";
 
 const Index = () => {
   useEffect(() => {
@@ -67,6 +68,9 @@ const Index = () => {
         <CloudAnimation />
         <Header />
         <main>
+          <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
+            <ModelViewer className="w-full h-full" />
+          </div>
           <Hero />
           <About />
           <Experience />
