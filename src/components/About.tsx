@@ -9,7 +9,7 @@ const About = () => {
   
   useEffect(() => {
     // Calculate years of experience (starting from 3 years in 2024)
-    const startYear = 2024;
+    const startYear = 2025;
     const startExperience = 3;
     const currentYear = new Date().getFullYear();
     const calculatedYears = startExperience + (currentYear - startYear);
