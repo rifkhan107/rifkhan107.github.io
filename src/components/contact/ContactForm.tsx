@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { Check, Send } from "lucide-react";
+import { toast } from "@/components/ui/sonner";
 
 const ContactForm = () => {
   const [formState, setFormState] = useState({
@@ -11,7 +12,6 @@ const ContactForm = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState({
@@ -23,11 +23,9 @@ const ContactForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError(null);
     
     try {
-      // Use EmailJS or similar service to send email
-      const response = await fetch("https://formsubmit.co/ajax/rifkhan561@gmail.com", {
+      const response = await fetch("https://formsubmit.co/0b0e3c3c19367b3e02760961f41190c0", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,13 +52,22 @@ const ContactForm = () => {
         message: "",
       });
       
+      // Show success toast
+      toast.success("Message sent successfully!", {
+        description: "Thank you for your message. I'll get back to you soon.",
+      });
+      
       // Reset submission status after 5 seconds
       setTimeout(() => {
         setIsSubmitted(false);
       }, 5000);
     } catch (err) {
       console.error("Error sending message:", err);
-      setError("Failed to send message. Please try again or contact directly via email.");
+      
+      // Show error toast
+      toast.error("Failed to send message", {
+        description: "Please try again or contact directly via email.",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -75,11 +82,6 @@ const ContactForm = () => {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
-          {error && (
-            <div className="bg-red-100 text-red-700 p-4 rounded-lg flex items-center space-x-3">
-              <span>{error}</span>
-            </div>
-          )}
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-foreground/80 mb-1">
               Your Name
