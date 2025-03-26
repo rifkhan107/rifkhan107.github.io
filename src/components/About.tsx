@@ -2,25 +2,20 @@
 import AnimatedCard from "@/components/ui/AnimatedCard";
 import Terminal from "@/components/ui/Terminal";
 import { Cloud, Globe, User } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const About = () => {
-  const terminalContent = `# About Rifkhan Mohamed
+  const [yearsOfExperience, setYearsOfExperience] = useState(3);
   
-> DevOps Engineer specializing in AWS cloud services
-> Based in Sri Lanka 🇱🇰
-
-My journey in technology began with a BSc (Hons) in Network Systems Engineering from the University of Sunderland, where I developed a strong foundation in network architecture and systems design.
-
-With expertise in cloud infrastructure, CI/CD pipelines, and DevSecOps practices, I help organizations build, deploy, and manage scalable applications in the cloud.
-
-I'm passionate about sharing knowledge with the wider community as an AWS Community Builder and active participant in cybersecurity initiatives through TryHackMe.
-
-# Skills
-- AWS Cloud Services
-- Docker & Kubernetes
-- Terraform & CloudFormation
-- CI/CD Pipeline Automation
-- DevSecOps Practices`;
+  useEffect(() => {
+    // Calculate years of experience (starting from 3 years in 2024)
+    const startYear = 2024;
+    const startExperience = 3;
+    const currentYear = new Date().getFullYear();
+    const calculatedYears = startExperience + (currentYear - startYear);
+    
+    setYearsOfExperience(calculatedYears);
+  }, []);
 
   return (
     <section
@@ -35,9 +30,7 @@ I'm passionate about sharing knowledge with the wider community as an AWS Commun
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
           <AnimatedCard className="glass-card rounded-2xl p-8 lg:p-10 flex flex-col justify-center order-2 md:order-1">
-            <Terminal>
-              {terminalContent}
-            </Terminal>
+            <Terminal />
           </AnimatedCard>
           
           <div className="flex flex-col gap-6 order-1 md:order-2">
@@ -48,8 +41,8 @@ I'm passionate about sharing knowledge with the wider community as an AWS Commun
               <div>
                 <h4 className="text-xl font-bold mb-2">Cloud Expert</h4>
                 <p className="text-foreground/70">
-                  Specializing in AWS and Azure cloud platforms, with extensive experience designing
-                  and implementing secure, scalable, and cost-effective cloud solutions.
+                  With {yearsOfExperience}+ years of experience specializing in AWS and Azure cloud platforms, 
+                  designing and implementing secure, scalable, and cost-effective cloud solutions.
                 </p>
               </div>
             </AnimatedCard>

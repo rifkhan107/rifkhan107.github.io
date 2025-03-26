@@ -11,6 +11,7 @@ const ContactForm = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState({
@@ -19,13 +20,31 @@ const ContactForm = () => {
     });
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Use EmailJS or similar service to send email
+      const response = await fetch("https://formsubmit.co/ajax/rifkhan561@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          message: formState.message,
+          _subject: `Portfolio Contact: Message from ${formState.name}`,
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+      
       setIsSubmitted(true);
       
       // Reset form
@@ -35,11 +54,16 @@ const ContactForm = () => {
         message: "",
       });
       
-      // Reset submission status after 3 seconds
+      // Reset submission status after 5 seconds
       setTimeout(() => {
         setIsSubmitted(false);
-      }, 3000);
-    }, 1500);
+      }, 5000);
+    } catch (err) {
+      console.error("Error sending message:", err);
+      setError("Failed to send message. Please try again or contact directly via email.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -47,10 +71,15 @@ const ContactForm = () => {
       {isSubmitted ? (
         <div className="bg-rifkhan/10 text-rifkhan p-4 rounded-lg flex items-center space-x-3 animate-fade-in">
           <Check className="w-5 h-5" />
-          <span>Thank you! Your message has been sent successfully.</span>
+          <span>Thank you! Your message has been sent successfully to rifkhan561@gmail.com</span>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
+          {error && (
+            <div className="bg-red-100 text-red-700 p-4 rounded-lg flex items-center space-x-3">
+              <span>{error}</span>
+            </div>
+          )}
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-foreground/80 mb-1">
               Your Name
