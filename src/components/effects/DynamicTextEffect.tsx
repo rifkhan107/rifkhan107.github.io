@@ -15,11 +15,12 @@ const DynamicTextEffect = ({
   className,
   delay = 0,
   onComplete,
-  tag: Tag = "div"
+  tag = "div"
 }: DynamicTextEffectProps) => {
   const [displayText, setDisplayText] = useState("");
   const letterElements = useRef<HTMLElement[]>([]);
-  const containerRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const Component = tag as any; // Type assertion to avoid complex union type
   
   useEffect(() => {
     if (!containerRef.current) return;
@@ -83,8 +84,8 @@ const DynamicTextEffect = ({
   }, [displayText]);
   
   return (
-    <Tag
-      ref={containerRef as React.RefObject<any>}
+    <Component
+      ref={containerRef}
       className={cn("", className)}
     >
       {displayText.split("").map((letter, index) => (
@@ -96,7 +97,7 @@ const DynamicTextEffect = ({
           {letter === " " ? "\u00A0" : letter}
         </span>
       ))}
-    </Tag>
+    </Component>
   );
 };
 

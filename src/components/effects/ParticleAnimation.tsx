@@ -22,6 +22,23 @@ const ParticleAnimation = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     
+    // Initialize particles function
+    const initParticles = () => {
+      particlesRef.current = [];
+      const particleCount = Math.floor(window.innerWidth / 10);
+      
+      for (let i = 0; i < particleCount; i++) {
+        particlesRef.current.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 3 + 1,
+          speedX: Math.random() * 2 - 1,
+          speedY: Math.random() * 2 - 1,
+          color: `hsla(199, 89%, ${40 + Math.random() * 20}%, ${0.3 + Math.random() * 0.3})`,
+        });
+      }
+    };
+    
     // Set canvas dimensions
     const handleResize = () => {
       canvas.width = window.innerWidth;
@@ -38,23 +55,6 @@ const ParticleAnimation = () => {
     };
     
     window.addEventListener("mousemove", handleMouseMove);
-    
-    // Initialize particles
-    const initParticles = () => {
-      particlesRef.current = [];
-      const particleCount = Math.floor(window.innerWidth / 10);
-      
-      for (let i = 0; i < particleCount; i++) {
-        particlesRef.current.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 3 + 1,
-          speedX: Math.random() * 2 - 1,
-          speedY: Math.random() * 2 - 1,
-          color: `hsla(199, 89%, ${40 + Math.random() * 20}%, ${0.3 + Math.random() * 0.3})`,
-        });
-      }
-    };
     
     // Animation loop
     const animate = () => {
