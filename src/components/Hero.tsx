@@ -1,6 +1,10 @@
+
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
+import ParticleAnimation from "@/components/effects/ParticleAnimation";
+import DynamicTextEffect from "@/components/effects/DynamicTextEffect";
+import ModelViewer from "@/components/effects/3DModelViewer";
 
 const typewriterTexts = [
   "DevOps Engineer",
@@ -13,6 +17,7 @@ const Hero = () => {
   const [typewriterIndex, setTypewriterIndex] = useState(0);
   const [typewriterText, setTypewriterText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
+  const [introComplete, setIntroComplete] = useState(false);
 
   useEffect(() => {
     const text = typewriterTexts[typewriterIndex];
@@ -50,6 +55,9 @@ const Hero = () => {
     >
       <div className="absolute inset-0 bg-gradient-to-b from-rifkhan/5 to-transparent dark:from-rifkhan-dark/10 z-0"></div>
       
+      {/* Particle Animation Background */}
+      <ParticleAnimation />
+      
       <div className="container mx-auto px-4 relative z-10 flex flex-col items-center justify-center">
         <AnimatedCard className="glass-card rounded-2xl p-8 md:p-12 max-w-4xl mx-auto text-center">
           <div className="stagger-item stagger-delay-1 mb-6 relative inline-block">
@@ -62,9 +70,14 @@ const Hero = () => {
             </div>
           </div>
           
-          <h1 className="stagger-item stagger-delay-2 text-4xl md:text-5xl lg:text-6xl font-rockybilly text-foreground mb-4">
-              Mohamed Rifkhan
-          </h1>
+          {/* Dynamic Text Effect for name */}
+          <DynamicTextEffect
+            text="Mohamed Rifkhan"
+            tag="h1"
+            className="stagger-item stagger-delay-2 text-4xl md:text-5xl lg:text-6xl font-rockybilly text-foreground mb-4"
+            delay={500}
+            onComplete={() => setIntroComplete(true)}
+          />
           
           <div className="stagger-item stagger-delay-3 h-10 mb-6">
             <span className="text-xl md:text-2xl text-rifkhan font-medium inline-flex items-center">
@@ -81,13 +94,13 @@ const Hero = () => {
           <div className="stagger-item stagger-delay-5 flex items-center justify-center space-x-4 mb-8">
             <a
               href="#about"
-              className="px-6 py-3 bg-rifkhan text-white rounded-lg shadow-lg hover:bg-rifkhan-dark transition-colors"
+              className="px-6 py-3 bg-rifkhan text-white rounded-lg shadow-lg hover:bg-rifkhan-dark transition-colors button-hover-effect"
             >
               Discover More
             </a>
             <a
               href="#contact"
-              className="px-6 py-3 bg-transparent border border-rifkhan text-rifkhan rounded-lg hover:bg-rifkhan/10 transition-colors"
+              className="px-6 py-3 bg-transparent border border-rifkhan text-rifkhan rounded-lg hover:bg-rifkhan/10 transition-colors button-hover-effect"
             >
               Get in Touch
             </a>

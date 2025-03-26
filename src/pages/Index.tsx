@@ -34,10 +34,29 @@ const Index = () => {
       }
     };
     
+    // Add scroll animations
+    const handleScrollAnimations = () => {
+      const animatedElements = document.querySelectorAll('.animate-on-scroll');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      animatedElements.forEach((element) => {
+        observer.observe(element);
+      });
+    };
+    
     window.addEventListener("load", handleHashNavigation);
+    window.addEventListener("DOMContentLoaded", handleScrollAnimations);
     
     return () => {
       window.removeEventListener("load", handleHashNavigation);
+      window.removeEventListener("DOMContentLoaded", handleScrollAnimations);
       document.documentElement.style.scrollBehavior = "";
     };
   }, []);

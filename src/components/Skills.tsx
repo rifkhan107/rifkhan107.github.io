@@ -1,5 +1,8 @@
+
 import { useState } from "react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
+import InteractiveSkills from "@/components/effects/InteractiveSkills";
+import DynamicTextEffect from "@/components/effects/DynamicTextEffect";
 
 interface Skill {
   name: string;
@@ -142,10 +145,6 @@ const categories = Array.from(new Set(skills.map(skill => skill.category)));
 const Skills = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   
-  const filteredSkills = selectedCategory === "All"
-    ? skills
-    : skills.filter(skill => skill.category === selectedCategory);
-
   return (
     <section
       id="skills"
@@ -154,7 +153,11 @@ const Skills = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <span className="chip mb-4">My Expertise</span>
-          <h2 className="section-title">Technical Skills</h2>
+          <DynamicTextEffect
+            text="Technical Skills"
+            tag="h2"
+            className="section-title"
+          />
         </div>
         
         <div className="flex flex-wrap justify-center gap-2 mb-12">
@@ -184,39 +187,12 @@ const Skills = () => {
           ))}
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {filteredSkills.map((skill) => (
-            <AnimatedCard
-              key={skill.name}
-              className="glass-card rounded-xl p-6 hover:shadow-lg transition-all"
-            >
-              <div className="flex items-center space-x-4 mb-4">
-                <div className="w-12 h-12 flex items-center justify-center bg-white rounded-lg shadow-sm">
-                  <img
-                    src={skill.icon}
-                    alt={skill.name}
-                    className="w-8 h-8 object-contain"
-                    loading="lazy"
-                  />
-                </div>
-                <div>
-                  <h3 className="font-bold text-foreground">{skill.name}</h3>
-                  <p className="text-xs text-foreground/60">{skill.category}</p>
-                </div>
-              </div>
-              
-              <div className="w-full bg-muted rounded-full h-2">
-                <div
-                  className="bg-rifkhan h-2 rounded-full"
-                  style={{ width: `${skill.proficiency}%` }}
-                ></div>
-              </div>
-              <p className="text-right text-sm text-foreground/70 mt-1">
-                {skill.proficiency}%
-              </p>
-            </AnimatedCard>
-          ))}
-        </div>
+        {/* Interactive Skills Grid */}
+        <InteractiveSkills
+          skills={skills}
+          selectedCategory={selectedCategory}
+          className="max-w-6xl mx-auto"
+        />
       </div>
     </section>
   );
