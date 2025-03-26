@@ -12,7 +12,6 @@ import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CloudAnimation from "@/components/ui/CloudAnimation";
-import ModelViewer from "@/components/effects/3DModelViewer";
 
 const Index = () => {
   useEffect(() => {
@@ -35,29 +34,10 @@ const Index = () => {
       }
     };
     
-    // Add scroll animations
-    const handleScrollAnimations = () => {
-      const animatedElements = document.querySelectorAll('.animate-on-scroll');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      }, { threshold: 0.1 });
-      
-      animatedElements.forEach((element) => {
-        observer.observe(element);
-      });
-    };
-    
     window.addEventListener("load", handleHashNavigation);
-    window.addEventListener("DOMContentLoaded", handleScrollAnimations);
     
     return () => {
       window.removeEventListener("load", handleHashNavigation);
-      window.removeEventListener("DOMContentLoaded", handleScrollAnimations);
       document.documentElement.style.scrollBehavior = "";
     };
   }, []);
@@ -68,9 +48,6 @@ const Index = () => {
         <CloudAnimation />
         <Header />
         <main>
-          <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
-            <ModelViewer className="w-full h-full" />
-          </div>
           <Hero />
           <About />
           <Experience />
