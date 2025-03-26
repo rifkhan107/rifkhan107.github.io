@@ -1,6 +1,8 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
+import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 
 interface ModelViewerProps {
   className?: string;
@@ -76,11 +78,11 @@ const ModelViewer = ({ className }: ModelViewerProps) => {
     }
     
     // Create a 3D text geometry for "DEVOPS"
-    const fontLoader = new THREE.FontLoader();
+    const fontLoader = new FontLoader();
     fontLoader.load(
       "https://threejs.org/examples/fonts/helvetiker_bold.typeface.json",
       function (font) {
-        const textGeometry = new THREE.TextGeometry("DEVOPS", {
+        const textGeometry = new TextGeometry("DEVOPS", {
           font: font,
           size: 0.8,
           height: 0.2,
@@ -208,3 +210,4 @@ const ModelViewer = ({ className }: ModelViewerProps) => {
 };
 
 export default ModelViewer;
+
