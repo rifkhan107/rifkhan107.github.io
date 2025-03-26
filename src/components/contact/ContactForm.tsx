@@ -1,7 +1,6 @@
-
 import { useState } from "react";
 import { Check, Send } from "lucide-react";
-import { toast } from "@/components/ui/sonner";
+import { toast } from "@/hooks/use-toast";
 
 const ContactForm = () => {
   const [formState, setFormState] = useState({
