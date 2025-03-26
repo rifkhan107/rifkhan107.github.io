@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Check, Send } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
@@ -52,8 +53,10 @@ const ContactForm = () => {
       });
       
       // Show success toast
-      toast.success("Message sent successfully!", {
+      toast({
+        title: "Message sent successfully!",
         description: "Thank you for your message. I'll get back to you soon.",
+        variant: "default",
       });
       
       // Reset submission status after 5 seconds
@@ -64,8 +67,10 @@ const ContactForm = () => {
       console.error("Error sending message:", err);
       
       // Show error toast
-      toast.error("Failed to send message", {
+      toast({
+        title: "Failed to send message",
         description: "Please try again or contact directly via email.",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
