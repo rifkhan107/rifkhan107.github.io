@@ -2,7 +2,7 @@
 import { useState } from "react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
 import { motion } from "framer-motion";
-import { Calendar, Clock } from "lucide-react";
+import { Calendar, Clock, Briefcase, Star } from "lucide-react";
 
 const experiences = [
   {
@@ -61,6 +61,41 @@ const Experience = () => {
 
   const activeExp = experiences.find(exp => exp.id === activeExperience) || experiences[0];
 
+  // Animation variants for cards
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12
+      }
+    }
+  };
+
+  const floatingIconVariants = {
+    animate: {
+      y: [0, -10, 0],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        repeatType: "reverse" as const
+      }
+    }
+  };
+
   return (
     <section
       id="experience"
@@ -72,62 +107,23 @@ const Experience = () => {
           <h2 className="section-title">Professional Experience</h2>
         </div>
 
-        <div className="max-w-5xl mx-auto">
-          {/* Timeline on wider screens - vertical */}
-          <div className="hidden md:block mb-12">
-            <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-rifkhan/20 rounded-full"></div>
-              
-              {experiences.map((exp, index) => (
-                <motion.div 
-                  key={exp.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                  className={`relative ${index % 2 === 0 ? 'left-0 pr-8 text-right' : 'left-1/2 pl-8'} w-1/2 mb-10`}
-                >
-                  {/* Timeline node */}
-                  <div 
-                    className={`absolute ${index % 2 === 0 ? 'right-0' : 'left-0'} top-5 w-4 h-4 rounded-full bg-rifkhan transform translate-x-${index % 2 === 0 ? '1/2' : '-1/2'}`}
-                  ></div>
-                  
-                  <AnimatedCard 
-                    className={`glass-card p-6 rounded-lg cursor-pointer ${activeExperience === exp.id ? 'border-l-4 border-rifkhan' : ''}`}
-                    onClick={() => handleTabClick(exp.id)}
-                  >
-                    <div className="flex items-center gap-3 mb-2">
-                      <img src={exp.logo} alt={exp.company} className="w-10 h-10 rounded-full object-cover" />
-                      <div>
-                        <h3 className="font-bold text-lg">{exp.company}</h3>
-                        <p className="text-rifkhan font-medium">{exp.title}</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center text-sm text-foreground/60 mt-2">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      <span>{exp.period}</span>
-                      <span className="mx-2">•</span>
-                      <Clock className="w-4 h-4 mr-1" />
-                      <span>{exp.location}</span>
-                    </div>
-                  </AnimatedCard>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-            {/* Experience tabs - Mobile version as scrolling horizontal list */}
+        <div className="max-w-6xl mx-auto">
+          {/* 3D Cards Layout */}
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-12 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            {/* Experience cards - Mobile version as scrolling horizontal list */}
             <div className="md:hidden w-full overflow-x-auto pb-4">
               <div className="flex space-x-4 min-w-max">
                 {experiences.map((exp, index) => (
-                  <motion.button
+                  <motion.div
                     key={exp.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.03 }}
                     className={`p-4 text-left rounded-lg transition-all flex-shrink-0 flex items-center space-x-3 min-w-[200px] ${
                       activeExperience === exp.id
                         ? "bg-white dark:bg-black/20 shadow-md border-l-4 border-rifkhan"
@@ -150,85 +146,123 @@ const Experience = () => {
                       </h3>
                       <p className="text-sm text-foreground/60 truncate">{exp.period}</p>
                     </div>
-                  </motion.button>
+                  </motion.div>
                 ))}
               </div>
             </div>
 
-            {/* Experience tabs - Desktop version */}
+            {/* Experience selection - Desktop version */}
             <div className="hidden md:col-span-4 md:flex md:flex-col md:space-y-2">
               {experiences.map((exp, index) => (
-                <motion.button
+                <motion.div
                   key={exp.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className={`p-4 text-left rounded-lg transition-all flex items-center space-x-3 ${
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.03, x: 5 }}
+                  className={`p-5 text-left rounded-lg transition-all flex items-center space-x-3 cursor-pointer ${
                     activeExperience === exp.id
-                      ? "bg-white dark:bg-black/20 shadow-md border-l-4 border-rifkhan"
+                      ? "glass-card shadow-lg border-l-4 border-rifkhan transform -translate-x-2"
                       : "hover:bg-white/50 dark:hover:bg-white/5"
                   }`}
                   onClick={() => handleTabClick(exp.id)}
                 >
-                  <img
-                    src={exp.logo}
-                    alt={exp.company}
-                    className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                  />
+                  <div className="relative">
+                    <img
+                      src={exp.logo}
+                      alt={exp.company}
+                      className="w-12 h-12 rounded-full object-cover flex-shrink-0 border-2 border-white/30"
+                    />
+                    {activeExperience === exp.id && (
+                      <motion.div 
+                        className="absolute -right-1 -top-1 bg-rifkhan rounded-full p-1"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                      >
+                        <Star className="w-3 h-3 text-white" />
+                      </motion.div>
+                    )}
+                  </div>
                   <div className="min-w-0">
-                    <h3 className={`font-medium truncate ${
+                    <h3 className={`font-bold truncate ${
                       activeExperience === exp.id
                         ? "text-rifkhan"
-                        : "text-foreground/70"
+                        : "text-foreground/80"
                     }`}>
                       {exp.company}
                     </h3>
-                    <p className="text-sm text-foreground/60 truncate">{exp.period}</p>
+                    <p className="text-sm font-medium truncate">{exp.title}</p>
+                    <p className="text-xs text-foreground/60 truncate">{exp.period}</p>
                   </div>
-                </motion.button>
+                </motion.div>
               ))}
             </div>
 
-            {/* Experience details */}
+            {/* Experience details with cool animation */}
             <div className="md:col-span-8">
               <motion.div
                 key={activeExperience}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 20, rotateY: -10 }}
+                animate={{ opacity: 1, y: 0, rotateY: 0 }}
+                exit={{ opacity: 0, y: -20, rotateY: 10 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 100, 
+                  damping: 15,
+                  duration: 0.5 
+                }}
+                style={{ perspective: 1000 }}
               >
-                <AnimatedCard className="glass-card rounded-2xl p-8">
+                <AnimatedCard className="glass-card rounded-2xl p-8 relative overflow-visible">
+                  {/* Floating icon */}
+                  <motion.div 
+                    className="absolute -top-8 -right-8 bg-rifkhan text-white p-4 rounded-full shadow-lg z-10"
+                    variants={floatingIconVariants}
+                    animate="animate"
+                  >
+                    <Briefcase className="w-6 h-6" />
+                  </motion.div>
+                  
                   <div className="flex items-start justify-between mb-6">
                     <div>
                       <h3 className="text-2xl font-bold text-foreground">{activeExp.title}</h3>
-                      <p className="text-rifkhan">{activeExp.company}</p>
-                      <p className="text-sm text-foreground/60 mt-1">{activeExp.period} • {activeExp.location}</p>
+                      <p className="text-rifkhan font-medium">{activeExp.company}</p>
+                      <div className="flex items-center text-sm text-foreground/60 mt-2">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        <span>{activeExp.period}</span>
+                        <span className="mx-2">•</span>
+                        <Clock className="w-4 h-4 mr-1" />
+                        <span>{activeExp.location}</span>
+                      </div>
                     </div>
                     <img
                       src={activeExp.logo}
                       alt={activeExp.company}
-                      className="w-16 h-16 rounded-lg object-cover hidden sm:block"
+                      className="w-16 h-16 rounded-lg object-cover hidden sm:block border-2 border-white/30 shadow-lg"
                     />
                   </div>
 
-                  <ul className="space-y-3">
+                  <motion.ul 
+                    className="space-y-3 mt-6"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
                     {activeExp.description.map((item, index) => (
                       <motion.li 
                         key={index} 
-                        className="flex items-start"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                        className="flex items-start bg-white/20 dark:bg-black/10 p-3 rounded-lg"
+                        variants={itemVariants}
+                        whileHover={{ x: 5, backgroundColor: "rgba(255,255,255,0.3)" }}
                       >
-                        <span className="text-rifkhan mr-3">•</span>
+                        <span className="text-rifkhan font-bold mr-3 mt-0.5">•</span>
                         <span className="text-foreground/80">{item}</span>
                       </motion.li>
                     ))}
-                  </ul>
+                  </motion.ul>
                 </AnimatedCard>
               </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
