@@ -1,6 +1,7 @@
 
 import { useEffect } from "react";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -47,16 +48,18 @@ const Index = () => {
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
         <CloudAnimation />
         <Header />
-        <main>
-          <Hero />
-          <About />
-          <Experience />
-          <Skills />
-          <Education />
-          <Volunteering />
-          <Certifications />
-          <Contact />
-        </main>
+        <AnimatePresence mode="wait">
+          <main>
+            <Hero />
+            <About />
+            <Experience />
+            <Skills />
+            <Education />
+            <Volunteering />
+            <Certifications />
+            <Contact />
+          </main>
+        </AnimatePresence>
         <Footer />
       </div>
     </ThemeProvider>

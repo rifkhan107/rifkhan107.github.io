@@ -1,6 +1,8 @@
 
 import { useState } from "react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
+import { motion } from "framer-motion";
+import { Calendar, Clock } from "lucide-react";
 
 const experiences = [
   {
@@ -71,16 +73,64 @@ const Experience = () => {
         </div>
 
         <div className="max-w-5xl mx-auto">
+          {/* Timeline on wider screens - vertical */}
+          <div className="hidden md:block mb-12">
+            <div className="relative">
+              {/* Timeline line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-rifkhan/20 rounded-full"></div>
+              
+              {experiences.map((exp, index) => (
+                <motion.div 
+                  key={exp.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  className={`relative ${index % 2 === 0 ? 'left-0 pr-8 text-right' : 'left-1/2 pl-8'} w-1/2 mb-10`}
+                >
+                  {/* Timeline node */}
+                  <div 
+                    className={`absolute ${index % 2 === 0 ? 'right-0' : 'left-0'} top-5 w-4 h-4 rounded-full bg-rifkhan transform translate-x-${index % 2 === 0 ? '1/2' : '-1/2'}`}
+                  ></div>
+                  
+                  <AnimatedCard 
+                    className={`glass-card p-6 rounded-lg cursor-pointer ${activeExperience === exp.id ? 'border-l-4 border-rifkhan' : ''}`}
+                    onClick={() => handleTabClick(exp.id)}
+                  >
+                    <div className="flex items-center gap-3 mb-2">
+                      <img src={exp.logo} alt={exp.company} className="w-10 h-10 rounded-full object-cover" />
+                      <div>
+                        <h3 className="font-bold text-lg">{exp.company}</h3>
+                        <p className="text-rifkhan font-medium">{exp.title}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center text-sm text-foreground/60 mt-2">
+                      <Calendar className="w-4 h-4 mr-1" />
+                      <span>{exp.period}</span>
+                      <span className="mx-2">•</span>
+                      <Clock className="w-4 h-4 mr-1" />
+                      <span>{exp.location}</span>
+                    </div>
+                  </AnimatedCard>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-            {/* Experience tabs - Fixed mobile view */}
-            <div className="md:col-span-4">
-              <div className="flex flex-row md:flex-col overflow-x-auto md:overflow-x-visible space-x-4 md:space-x-0 md:space-y-2 p-1 pb-4">
-                {experiences.map((exp) => (
-                  <button
+            {/* Experience tabs - Mobile version as scrolling horizontal list */}
+            <div className="md:hidden w-full overflow-x-auto pb-4">
+              <div className="flex space-x-4 min-w-max">
+                {experiences.map((exp, index) => (
+                  <motion.button
                     key={exp.id}
-                    className={`p-4 text-left rounded-lg transition-all flex-shrink-0 flex items-center space-x-3 ${
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className={`p-4 text-left rounded-lg transition-all flex-shrink-0 flex items-center space-x-3 min-w-[200px] ${
                       activeExperience === exp.id
-                        ? "bg-white dark:bg-black/20 shadow-md"
+                        ? "bg-white dark:bg-black/20 shadow-md border-l-4 border-rifkhan"
                         : "hover:bg-white/50 dark:hover:bg-white/5"
                     }`}
                     onClick={() => handleTabClick(exp.id)}
@@ -100,36 +150,83 @@ const Experience = () => {
                       </h3>
                       <p className="text-sm text-foreground/60 truncate">{exp.period}</p>
                     </div>
-                  </button>
+                  </motion.button>
                 ))}
               </div>
             </div>
 
+            {/* Experience tabs - Desktop version */}
+            <div className="hidden md:col-span-4 md:flex md:flex-col md:space-y-2">
+              {experiences.map((exp, index) => (
+                <motion.button
+                  key={exp.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  className={`p-4 text-left rounded-lg transition-all flex items-center space-x-3 ${
+                    activeExperience === exp.id
+                      ? "bg-white dark:bg-black/20 shadow-md border-l-4 border-rifkhan"
+                      : "hover:bg-white/50 dark:hover:bg-white/5"
+                  }`}
+                  onClick={() => handleTabClick(exp.id)}
+                >
+                  <img
+                    src={exp.logo}
+                    alt={exp.company}
+                    className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                  />
+                  <div className="min-w-0">
+                    <h3 className={`font-medium truncate ${
+                      activeExperience === exp.id
+                        ? "text-rifkhan"
+                        : "text-foreground/70"
+                    }`}>
+                      {exp.company}
+                    </h3>
+                    <p className="text-sm text-foreground/60 truncate">{exp.period}</p>
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+
             {/* Experience details */}
             <div className="md:col-span-8">
-              <AnimatedCard className="glass-card rounded-2xl p-8">
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <h3 className="text-2xl font-bold text-foreground">{activeExp.title}</h3>
-                    <p className="text-rifkhan">{activeExp.company}</p>
-                    <p className="text-sm text-foreground/60 mt-1">{activeExp.period} • {activeExp.location}</p>
+              <motion.div
+                key={activeExperience}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <AnimatedCard className="glass-card rounded-2xl p-8">
+                  <div className="flex items-start justify-between mb-6">
+                    <div>
+                      <h3 className="text-2xl font-bold text-foreground">{activeExp.title}</h3>
+                      <p className="text-rifkhan">{activeExp.company}</p>
+                      <p className="text-sm text-foreground/60 mt-1">{activeExp.period} • {activeExp.location}</p>
+                    </div>
+                    <img
+                      src={activeExp.logo}
+                      alt={activeExp.company}
+                      className="w-16 h-16 rounded-lg object-cover hidden sm:block"
+                    />
                   </div>
-                  <img
-                    src={activeExp.logo}
-                    alt={activeExp.company}
-                    className="w-16 h-16 rounded-lg object-cover hidden sm:block"
-                  />
-                </div>
 
-                <ul className="space-y-3">
-                  {activeExp.description.map((item, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="text-rifkhan mr-3">•</span>
-                      <span className="text-foreground/80">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </AnimatedCard>
+                  <ul className="space-y-3">
+                    {activeExp.description.map((item, index) => (
+                      <motion.li 
+                        key={index} 
+                        className="flex items-start"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                      >
+                        <span className="text-rifkhan mr-3">•</span>
+                        <span className="text-foreground/80">{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </AnimatedCard>
+              </motion.div>
             </div>
           </div>
         </div>
