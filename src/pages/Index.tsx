@@ -10,6 +10,7 @@ import Skills from "@/components/Skills";
 import Education from "@/components/Education";
 import Volunteering from "@/components/Volunteering";
 import Certifications from "@/components/Certifications";
+import Blog from "@/components/Blog";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CloudAnimation from "@/components/ui/CloudAnimation";
@@ -57,6 +58,7 @@ const Index = () => {
             <Education />
             <Volunteering />
             <Certifications />
+            <Blog />
             <Contact />
           </main>
         </AnimatePresence>
