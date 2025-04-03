@@ -5,11 +5,14 @@ interface VisitorData {
   userAgent: string;
   page: string;
   referrer: string;
+  country?: string;
+  countryCode?: string;
 }
 
 class AnalyticsService {
   private visitors: VisitorData[] = [];
   private initialized = false;
+  private adminPassword = "rifkhan-admin"; // Simple admin password for demonstration
 
   init() {
     if (this.initialized) return;
@@ -32,12 +35,30 @@ class AnalyticsService {
       const ipResponse = await fetch('https://api.ipify.org?format=json');
       const ipData = await ipResponse.json();
       
+      // Get country information based on IP
+      let country = "";
+      let countryCode = "";
+      
+      try {
+        const geoResponse = await fetch(`https://ipapi.co/${ipData.ip}/json/`);
+        const geoData = await geoResponse.json();
+        
+        if (geoData && !geoData.error) {
+          country = geoData.country_name || "";
+          countryCode = geoData.country_code || "";
+        }
+      } catch (error) {
+        console.error('Failed to fetch geolocation data:', error);
+      }
+      
       const visitorData: VisitorData = {
         timestamp: new Date().toISOString(),
         ipAddress: ipData.ip,
         userAgent: navigator.userAgent,
         page: window.location.pathname,
-        referrer: document.referrer || 'direct'
+        referrer: document.referrer || 'direct',
+        country,
+        countryCode
       };
 
       this.visitors.push(visitorData);
@@ -64,6 +85,10 @@ class AnalyticsService {
   getUniqueVisitorCount() {
     const uniqueIps = new Set(this.visitors.map(visitor => visitor.ipAddress));
     return uniqueIps.size;
+  }
+
+  verifyAdmin(password: string): boolean {
+    return password === this.adminPassword;
   }
 }
 
