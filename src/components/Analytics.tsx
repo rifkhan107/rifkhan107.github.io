@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { analyticsService } from "@/services/analyticsService";
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import { Globe, Flag, User, Lock, X } from "lucide-react";
+import { Globe, Flag, ArrowLeftRight, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
@@ -30,19 +31,36 @@ const Analytics = ({ onClose }: AnalyticsProps) => {
   const [uniqueVisitorCount, setUniqueVisitorCount] = useState(0);
   const [visitors, setVisitors] = useState<VisitorData[]>([]);
   const [showLoginForm, setShowLoginForm] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
     if (isAdmin) {
-      const visitorCount = analyticsService.getVisitCount();
-      const uniqueCount = analyticsService.getUniqueVisitorCount();
-      const visitorList = analyticsService.getVisitors();
+      loadAnalyticsData();
+    }
+  }, [isAdmin]);
+
+  const loadAnalyticsData = async () => {
+    setIsLoading(true);
+    try {
+      const visitorCount = await analyticsService.getVisitCount();
+      const uniqueCount = await analyticsService.getUniqueVisitorCount();
+      const visitorList = await analyticsService.getVisitors();
       
       setVisitorCount(visitorCount);
       setUniqueVisitorCount(uniqueCount);
       setVisitors(visitorList);
+    } catch (error) {
+      console.error("Error loading analytics data:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load analytics data",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
     }
-  }, [isAdmin]);
+  };
 
   const handleLogin = () => {
     if (analyticsService.verifyAdmin(password)) {
@@ -117,155 +135,174 @@ const Analytics = ({ onClose }: AnalyticsProps) => {
         <Card className="w-full max-w-4xl">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
-              <CardTitle>Website Analytics</CardTitle>
-              <CardDescription>View visitor statistics and IP addresses</CardDescription>
+              <CardTitle>Portfolio Analytics</CardTitle>
+              <CardDescription>View visitor statistics for your portfolio</CardDescription>
             </div>
             {onClose && (
               <Button variant="outline" onClick={onClose}>Close</Button>
             )}
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-2xl flex items-center">
-                    <User className="mr-2 h-5 w-5 text-muted-foreground" />
-                    {visitorCount}
-                  </CardTitle>
-                  <CardDescription>Total Page Views</CardDescription>
-                </CardHeader>
-              </Card>
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-2xl flex items-center">
-                    <Globe className="mr-2 h-5 w-5 text-muted-foreground" />
-                    {uniqueVisitorCount}
-                  </CardTitle>
-                  <CardDescription>Unique Visitors</CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
-            
-            <Tabs defaultValue="list">
-              <TabsList className="mb-4">
-                <TabsTrigger value="list">Visitor List</TabsTrigger>
-                <TabsTrigger value="ips">IP Addresses</TabsTrigger>
-                <TabsTrigger value="countries">Countries</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="list">
-                <ScrollArea className="h-[400px]">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Country</TableHead>
-                        <TableHead>IP Address</TableHead>
-                        <TableHead>Page</TableHead>
-                        <TableHead>Time</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {visitors.map((visitor, index) => (
-                        <TableRow key={index}>
-                          <TableCell>
-                            <div className="flex items-center gap-2">
-                              <span className="text-xl" title={visitor.country || "Unknown"}>
-                                {getCountryFlag(visitor.countryCode)}
-                              </span>
-                              <span className="text-sm">{visitor.country || "Unknown"}</span>
-                            </div>
-                          </TableCell>
-                          <TableCell>{visitor.ipAddress}</TableCell>
-                          <TableCell>{visitor.page}</TableCell>
-                          <TableCell>{new Date(visitor.timestamp).toLocaleString()}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+            {isLoading ? (
+              <div className="flex justify-center items-center h-40">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-rifkhan"></div>
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-2xl flex items-center">
+                        <ArrowLeftRight className="mr-2 h-5 w-5 text-muted-foreground" />
+                        {visitorCount}
+                      </CardTitle>
+                      <CardDescription>Total Page Views</CardDescription>
+                    </CardHeader>
+                  </Card>
                   
-                  {visitors.length === 0 && (
-                    <div className="text-center py-8 text-muted-foreground">
-                      No visitor data recorded yet
-                    </div>
-                  )}
-                </ScrollArea>
-              </TabsContent>
-              
-              <TabsContent value="ips">
-                <ScrollArea className="h-[400px]">
-                  <div className="space-y-2">
-                    {[...new Set(visitors.map(v => v.ipAddress))].map((ip, index) => {
-                      const visitorWithIp = visitors.find(v => v.ipAddress === ip);
-                      return (
-                        <Card key={index} className="p-3">
-                          <div className="flex items-center gap-2">
-                            <span className="text-xl">
-                              {getCountryFlag(visitorWithIp?.countryCode)}
-                            </span>
-                            <div>
-                              <div className="font-medium">{ip}</div>
-                              <div className="text-sm text-muted-foreground">
-                                {visitorWithIp?.country || "Unknown location"}
-                              </div>
-                            </div>
-                          </div>
-                        </Card>
-                      );
-                    })}
-                    
-                    {visitors.length === 0 && (
-                      <div className="text-center py-8 text-muted-foreground">
-                        No IP addresses recorded yet
-                      </div>
-                    )}
-                  </div>
-                </ScrollArea>
-              </TabsContent>
-              
-              <TabsContent value="countries">
-                <ScrollArea className="h-[400px]">
-                  <div className="space-y-2">
-                    {
-                      Object.entries(
-                        visitors.reduce((acc, visitor) => {
-                          const country = visitor.country || "Unknown";
-                          if (!acc[country]) {
-                            acc[country] = 0;
-                          }
-                          acc[country] += 1;
-                          return acc;
-                        }, {} as Record<string, number>)
-                      )
-                      .sort((a, b) => b[1] - a[1])
-                      .map(([country, count], index) => {
-                        const countryCode = visitors.find(v => v.country === country)?.countryCode;
-                        return (
-                          <Card key={index} className="p-3">
-                            <div className="flex items-center justify-between gap-2">
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-2xl flex items-center">
+                        <Globe className="mr-2 h-5 w-5 text-muted-foreground" />
+                        {uniqueVisitorCount}
+                      </CardTitle>
+                      <CardDescription>Unique Visitors</CardDescription>
+                    </CardHeader>
+                  </Card>
+                  
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-2xl flex items-center">
+                        <Flag className="mr-2 h-5 w-5 text-muted-foreground" />
+                        {new Set(visitors.map(v => v.country || "Unknown")).size}
+                      </CardTitle>
+                      <CardDescription>Countries</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </div>
+                
+                <Tabs defaultValue="list">
+                  <TabsList className="mb-4">
+                    <TabsTrigger value="list">Visitor List</TabsTrigger>
+                    <TabsTrigger value="ips">IP Addresses</TabsTrigger>
+                    <TabsTrigger value="countries">Countries</TabsTrigger>
+                  </TabsList>
+                  
+                  <TabsContent value="list">
+                    <ScrollArea className="h-[400px]">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Country</TableHead>
+                            <TableHead>IP Address</TableHead>
+                            <TableHead>Page</TableHead>
+                            <TableHead>Time</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {visitors.map((visitor, index) => (
+                            <TableRow key={index}>
+                              <TableCell>
+                                <div className="flex items-center gap-2">
+                                  <span className="text-xl" title={visitor.country || "Unknown"}>
+                                    {getCountryFlag(visitor.countryCode)}
+                                  </span>
+                                  <span className="text-sm">{visitor.country || "Unknown"}</span>
+                                </div>
+                              </TableCell>
+                              <TableCell>{visitor.ipAddress}</TableCell>
+                              <TableCell>{visitor.page}</TableCell>
+                              <TableCell>{new Date(visitor.timestamp).toLocaleString()}</TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                      
+                      {visitors.length === 0 && (
+                        <div className="text-center py-8 text-muted-foreground">
+                          No visitor data recorded yet
+                        </div>
+                      )}
+                    </ScrollArea>
+                  </TabsContent>
+                  
+                  <TabsContent value="ips">
+                    <ScrollArea className="h-[400px]">
+                      <div className="space-y-2">
+                        {[...new Set(visitors.map(v => v.ipAddress))].map((ip, index) => {
+                          const visitorWithIp = visitors.find(v => v.ipAddress === ip);
+                          return (
+                            <Card key={index} className="p-3">
                               <div className="flex items-center gap-2">
                                 <span className="text-xl">
-                                  {getCountryFlag(countryCode)}
+                                  {getCountryFlag(visitorWithIp?.countryCode)}
                                 </span>
-                                <span className="font-medium">{country}</span>
+                                <div>
+                                  <div className="font-medium">{ip}</div>
+                                  <div className="text-sm text-muted-foreground">
+                                    {visitorWithIp?.country || "Unknown location"}
+                                  </div>
+                                </div>
                               </div>
-                              <div className="bg-muted px-2 py-1 rounded-full text-sm">
-                                {count} visitor{count !== 1 ? 's' : ''}
-                              </div>
-                            </div>
-                          </Card>
-                        );
-                      })
-                    }
-                    
-                    {visitors.length === 0 && (
-                      <div className="text-center py-8 text-muted-foreground">
-                        No country data recorded yet
+                            </Card>
+                          );
+                        })}
+                        
+                        {visitors.length === 0 && (
+                          <div className="text-center py-8 text-muted-foreground">
+                            No IP addresses recorded yet
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                </ScrollArea>
-              </TabsContent>
-            </Tabs>
+                    </ScrollArea>
+                  </TabsContent>
+                  
+                  <TabsContent value="countries">
+                    <ScrollArea className="h-[400px]">
+                      <div className="space-y-2">
+                        {
+                          Object.entries(
+                            visitors.reduce((acc, visitor) => {
+                              const country = visitor.country || "Unknown";
+                              if (!acc[country]) {
+                                acc[country] = 0;
+                              }
+                              acc[country] += 1;
+                              return acc;
+                            }, {} as Record<string, number>)
+                          )
+                          .sort((a, b) => b[1] - a[1])
+                          .map(([country, count], index) => {
+                            const countryCode = visitors.find(v => v.country === country)?.countryCode;
+                            return (
+                              <Card key={index} className="p-3">
+                                <div className="flex items-center justify-between gap-2">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-xl">
+                                      {getCountryFlag(countryCode)}
+                                    </span>
+                                    <span className="font-medium">{country}</span>
+                                  </div>
+                                  <div className="bg-muted px-2 py-1 rounded-full text-sm">
+                                    {count} visitor{count !== 1 ? 's' : ''}
+                                  </div>
+                                </div>
+                              </Card>
+                            );
+                          })
+                        }
+                        
+                        {visitors.length === 0 && (
+                          <div className="text-center py-8 text-muted-foreground">
+                            No country data recorded yet
+                          </div>
+                        )}
+                      </div>
+                    </ScrollArea>
+                  </TabsContent>
+                </Tabs>
+              </>
+            )}
           </CardContent>
         </Card>
       )}
