@@ -10,13 +10,24 @@ import { Globe, Flag, User, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
+// Define the VisitorData interface to match the one in analyticsService
+interface VisitorData {
+  timestamp: string;
+  ipAddress: string;
+  userAgent: string;
+  page: string;
+  referrer: string;
+  country?: string;
+  countryCode?: string;
+}
+
 const Analytics = () => {
   const [showStats, setShowStats] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [password, setPassword] = useState("");
   const [visitorCount, setVisitorCount] = useState(0);
   const [uniqueVisitorCount, setUniqueVisitorCount] = useState(0);
-  const [visitors, setVisitors] = useState<any[]>([]);
+  const [visitors, setVisitors] = useState<VisitorData[]>([]);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const { toast } = useToast();
 
@@ -52,16 +63,17 @@ const Analytics = () => {
     }
   };
 
-  // Function to convert country code to flag emoji
+  // Function to convert country code to flag emoji - fixed to handle string properly
   const getCountryFlag = (countryCode?: string) => {
     if (!countryCode) return "🌐";
     
-    // Convert country code to flag emoji
+    // Convert country code to flag emoji - ensure we're working with numbers
     const codePoints = countryCode
       .toUpperCase()
       .split('')
       .map(char => 127397 + char.charCodeAt(0));
     
+    // Use spread operator with the returned array to pass as arguments
     return String.fromCodePoint(...codePoints);
   };
 
@@ -224,11 +236,14 @@ const Analytics = () => {
               <ScrollArea className="h-[400px]">
                 <div className="space-y-2">
                   {
-                    // Group by country and count
+                    // Group by country and count - with proper type handling
                     Object.entries(
                       visitors.reduce((acc, visitor) => {
                         const country = visitor.country || "Unknown";
-                        acc[country] = (acc[country] || 0) + 1;
+                        if (!acc[country]) {
+                          acc[country] = 0;
+                        }
+                        acc[country] += 1;
                         return acc;
                       }, {} as Record<string, number>)
                     )
