@@ -2,13 +2,20 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "@/components/ui/ThemeProvider";
 import { cn } from "@/lib/utils";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, Lock } from "lucide-react";
 import AnimatedRMLogo from "./ui/AnimatedRMLogo";
+import { Button } from "./ui/button";
+import { useToast } from "@/hooks/use-toast";
 
-const Header = () => {
+interface HeaderProps {
+  openAdminAnalytics?: () => void;
+}
+
+const Header = ({ openAdminAnalytics }: HeaderProps) => {
   const { theme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +32,18 @@ const Header = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleAdminClick = () => {
+    if (openAdminAnalytics) {
+      openAdminAnalytics();
+    } else {
+      toast({
+        title: "Admin Analytics",
+        description: "Analytics functionality is not available",
+        duration: 3000,
+      });
+    }
   };
 
   return (
@@ -62,6 +81,15 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center space-x-4">
+          <Button
+            onClick={handleAdminClick}
+            variant="ghost"
+            className="hidden sm:flex"
+            size="sm"
+          >
+            <Lock className="h-4 w-4 mr-2" /> Admin
+          </Button>
+          
           <button
             onClick={toggleTheme}
             className="rounded-full p-2 hover:bg-accent transition-colors"
@@ -104,6 +132,14 @@ const Header = () => {
                 </a>
               )
             )}
+            <Button
+              onClick={handleAdminClick}
+              variant="outline"
+              className="mt-2"
+              size="sm"
+            >
+              <Lock className="h-4 w-4 mr-2" /> Admin Analytics
+            </Button>
           </nav>
         </div>
       )}
