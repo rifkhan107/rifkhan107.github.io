@@ -1,44 +1,77 @@
 
 import { useEffect } from "react";
-import { analyticsService } from "@/services/analyticsService";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Experience from "@/components/Experience";
-import Education from "@/components/Education";
 import Skills from "@/components/Skills";
+import Education from "@/components/Education";
+import Volunteering from "@/components/Volunteering";
+import Certifications from "@/components/Certifications";
+import Blog from "@/components/Blog";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import Certifications from "@/components/Certifications";
-import Volunteering from "@/components/Volunteering";
-import Blog from "@/components/Blog";
+import CloudAnimation from "@/components/ui/CloudAnimation";
+import Analytics from "@/components/Analytics";
+import { analyticsService } from "@/services/analyticsService";
 
-interface IndexProps {
-  openAdminAnalytics?: () => void;
-}
-
-const Index = ({ openAdminAnalytics }: IndexProps) => {
+const Index = () => {
   useEffect(() => {
-    // Track page visit
+    // Update document title
+    document.title = "Rifkhan Mohamed | DevOps Engineer";
+    
+    // Add smooth scroll behavior
+    document.documentElement.style.scrollBehavior = "smooth";
+    
+    // Handle hash navigation on page load
+    const handleHashNavigation = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const element = document.querySelector(hash);
+        if (element) {
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        }
+      }
+    };
+    
+    window.addEventListener("load", handleHashNavigation);
+    
+    // Initialize and track analytics
+    analyticsService.init();
     analyticsService.trackPageView();
+    
+    return () => {
+      window.removeEventListener("load", handleHashNavigation);
+      document.documentElement.style.scrollBehavior = "";
+    };
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header openAdminAnalytics={openAdminAnalytics} />
-      <main className="flex-grow">
-        <Hero />
-        <About />
-        <Experience />
-        <Education />
-        <Skills />
-        <Certifications />
-        <Volunteering />
-        <Blog />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <ThemeProvider defaultTheme="light">
+      <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+        <CloudAnimation />
+        <Header />
+        <AnimatePresence mode="wait">
+          <main>
+            <Hero />
+            <About />
+            <Experience />
+            <Skills />
+            <Education />
+            <Volunteering />
+            <Certifications />
+            <Blog />
+            <Contact />
+          </main>
+        </AnimatePresence>
+        <Footer />
+        <Analytics />
+      </div>
+    </ThemeProvider>
   );
 };
 
