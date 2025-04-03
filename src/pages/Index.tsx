@@ -7,7 +7,6 @@ import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Education from "@/components/Education";
 import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Certifications from "@/components/Certifications";
@@ -21,7 +20,7 @@ interface IndexProps {
 const Index = ({ openAdminAnalytics }: IndexProps) => {
   useEffect(() => {
     // Track page visit
-    analyticsService.trackVisit();
+    analyticsService.trackPageView();
   }, []);
 
   return (
