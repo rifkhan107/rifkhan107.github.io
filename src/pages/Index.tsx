@@ -14,8 +14,6 @@ import Blog from "@/components/Blog";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CloudAnimation from "@/components/ui/CloudAnimation";
-import Analytics from "@/components/Analytics";
-import { analyticsService } from "@/services/analyticsService";
 
 const Index = () => {
   useEffect(() => {
@@ -39,10 +37,6 @@ const Index = () => {
     };
     
     window.addEventListener("load", handleHashNavigation);
-    
-    // Initialize and track analytics
-    analyticsService.init();
-    analyticsService.trackPageView();
     
     return () => {
       window.removeEventListener("load", handleHashNavigation);
@@ -69,7 +63,6 @@ const Index = () => {
           </main>
         </AnimatePresence>
         <Footer />
-        <Analytics />
       </div>
     </ThemeProvider>
   );
