@@ -37,8 +37,8 @@ export const useSmoothScroll = () => {
       if (hash) {
         const element = document.querySelector(hash);
         if (element) {
-          // Prevent default behavior
-          window.preventDefault?.();
+          // Prevent default scroll behavior
+          // Note: Window doesn't have preventDefault, removing this line
           
           // Custom smooth scroll with 1000ms duration for slowmo effect
           smoothScroll(element, 1000);
