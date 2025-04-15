@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { AnimatePresence } from "framer-motion";
@@ -14,34 +13,14 @@ import Blog from "@/components/Blog";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CloudAnimation from "@/components/ui/CloudAnimation";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
 const Index = () => {
+  useSmoothScroll();
+
   useEffect(() => {
     // Update document title
     document.title = "Rifkhan Mohamed | DevOps Engineer";
-    
-    // Add smooth scroll behavior
-    document.documentElement.style.scrollBehavior = "smooth";
-    
-    // Handle hash navigation on page load
-    const handleHashNavigation = () => {
-      const hash = window.location.hash;
-      if (hash) {
-        const element = document.querySelector(hash);
-        if (element) {
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: "smooth" });
-          }, 100);
-        }
-      }
-    };
-    
-    window.addEventListener("load", handleHashNavigation);
-    
-    return () => {
-      window.removeEventListener("load", handleHashNavigation);
-      document.documentElement.style.scrollBehavior = "";
-    };
   }, []);
 
   return (
