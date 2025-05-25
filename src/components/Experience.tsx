@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
 import { motion } from "framer-motion";
@@ -9,7 +8,7 @@ const experiences = [
     id: "ceylon",
     title: "DevOps Engineer - AWS",
     company: "Ceylon Solutions",
-    logo: "https://media.licdn.com/dms/image/v2/C560BAQFa05jN20KuDA/company-logo_400_400/company-logo_400_400/0/1630651612654/ceylon_solutions_logo?e=1747872000&v=beta&t=CxSzntGxyfCWCGR4tYTP8otPaZAPZBjxEOEeT-Rn-ks",
+    logo: "https://media.licdn.com/dms/image/v2/C560BAQFa05jN20KuDA/company-logo_400_400/company-logo_400_400/0/1630651612654/ceylon_solutions_logo?e=1748476800&v=beta&t=0W3MELlbCNnW24EjZbJoWnz46Lw1KvjQXaUGxN8TwpI",
     period: "2023 - Present",
     location: "Colombo District, Sri Lanka",
     description: [
@@ -24,7 +23,7 @@ const experiences = [
     id: "tech-venturas",
     title: "DevOps Engineer - Azure",
     company: "Tech Venturas",
-    logo: "https://media.licdn.com/dms/image/v2/C560BAQFKdBktaLZF_A/company-logo_400_400/company-logo_400_400/0/1648031425806/tech_venturas_logo?e=1747872000&v=beta&t=Av-ecImcfsjvan_AnRxrxI8IUTiE13IovAMgNz6bD2U",
+    logo: "https://media.licdn.com/dms/image/v2/C560BAQFKdBktaLZF_A/company-logo_400_400/company-logo_400_400/0/1648031425806/tech_venturas_logo?e=1748476800&v=beta&t=Av-ecImcfsjvan_AnRxrxI8IUTiE13IovAMgNz6bD2U",
     period: "2022 - 2023",
     location: "Colombo, Sri Lanka",
     description: [
@@ -39,7 +38,7 @@ const experiences = [
     id: "hsenid",
     title: "Trainee DevOps Engineer",
     company: "hSenid Mobile Solutions",
-    logo: "https://media.licdn.com/dms/image/v2/C4D0BAQFiIq28ZK5wdw/company-logo_400_400/company-logo_400_400/0/1631369941555?e=1747872000&v=beta&t=y8poGrUQHBZngyiF6En16PDFaV99xn8vDf-6It0sLxY",
+    logo: "https://media.licdn.com/dms/image/v2/C4D0BAQFiIq28ZK5wdw/company-logo_400_400/company-logo_400_400/0/1631369941555?e=1748476800&v=beta&t=y8poGrUQHBZngyiF6En16PDFaV99xn8vDf-6It0sLxY",
     period: "2021 - 2022",
     location: "Colombo, Sri Lanka",
     description: [

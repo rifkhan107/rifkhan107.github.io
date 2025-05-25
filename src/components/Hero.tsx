@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
@@ -55,12 +56,12 @@ const Hero = () => {
           <div className="stagger-item stagger-delay-1 mb-6 relative inline-block">
             <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white/30 shadow-lg mx-auto">
               <img
-                src="https://avatars.githubusercontent.com/u/44481068?v=4"
+                src="https://media.licdn.com/dms/image/v2/D5603AQEiKmSjsVf5Dw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1671442399885?e=1747872000&v=beta&t=Ri1zM8EaUNM1LFpQDv8OsJV3hSkHqJNUQaJsLz4oC6w"
                 alt="Mohamed Rifkhan"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face";
+                  target.src = "https://avatars.githubusercontent.com/u/44481068?v=4";
                 }}
               />
             </div>
