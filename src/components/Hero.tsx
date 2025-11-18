@@ -56,7 +56,7 @@ const Hero = () => {
           <div className="stagger-item stagger-delay-1 mb-6 relative inline-block">
             <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white/30 shadow-lg mx-auto">
               <img
-                src="https://media.licdn.com/dms/image/v2/D5603AQFtzTaTDhe01Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1731918146575?e=1753920000&v=beta&t=eKCI96fVxfjIYFOxvtcL365ZxOghsSS6Xix622TENvc"
+                src="https://github.com/rifkhan107.png"
                 alt="Mohamed Rifkhan"
                 className="w-full h-full object-cover"
                 onError={(e) => {
