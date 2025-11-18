@@ -17,16 +17,16 @@ const certifications: Certification[] = [
     id: "aws-ccp",
     title: "AWS Certified Cloud Practitioner",
     organization: "Amazon Web Services",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/200px-Amazon_Web_Services_Logo.svg.png",
+    logo: "https://d1.awsstatic.com/training-and-certification/certification-badges/AWS-Certified-Cloud-Practitioner_badge.634f8a21af2e0e956ed8905a72366146ba22b74c.png",
     date: "2022",
     description: "Fundamental understanding of AWS Cloud services, architecture, security, and cost management.",
-    logoClassName: "scale-90 p-1"
+    logoClassName: "scale-110"
   },
   {
     id: "azure-fundamentals",
     title: "Microsoft Certified: Azure Fundamentals",
     organization: "Microsoft",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/200px-Microsoft_logo.svg.png",
+    logo: "https://images.credly.com/images/be8fcaeb-c769-4858-b567-ffaaa73ce8cf/image.png",
     date: "2022",
     description: "Foundational knowledge of cloud concepts, Azure services, security, privacy, compliance, and trust."
   },
@@ -34,25 +34,37 @@ const certifications: Certification[] = [
     id: "wso2-api",
     title: "WSO2 Certified API Manager Practitioner",
     organization: "WSO2",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/WSO2_Software_Logo.svg/200px-WSO2_Software_Logo.svg.png",
+    logo: "https://wso2.cachefly.net/wso2/sites/all/images/wso2-logo.svg",
     date: "2021",
-    description: "Expertise in designing, implementing, and managing API solutions using WSO2 API Manager."
+    description: "Expertise in designing, implementing, and managing API solutions using WSO2 API Manager.",
+    logoClassName: "scale-125"
   },
   {
     id: "palo-alto",
     title: "Palo Alto Networks Micro-Credential for Kubernetes Network Security Administrator",
     organization: "Palo Alto Networks",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Palo_Alto_Networks_logo.svg/200px-Palo_Alto_Networks_logo.svg.png",
+    logo: "https://www.paloaltonetworks.com/content/dam/pan/en_US/images/logos/brand/primary-company-logo/Parent-logo.png",
     date: "2022",
-    description: "Specialized knowledge in securing Kubernetes clusters and containerized applications."
+    description: "Specialized knowledge in securing Kubernetes clusters and containerized applications.",
+    logoClassName: "scale-90"
   },
   {
     id: "apisec",
     title: "API Security Fundamentals - Certificate of Completion",
     organization: "APIsec University",
-    logo: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=200&h=200&fit=crop",
+    logo: "https://apisec.ai/wp-content/uploads/2021/07/logo.svg",
     date: "2023",
-    description: "Comprehensive understanding of API security principles, threats, and best practices for protection."
+    description: "Comprehensive understanding of API security principles, threats, and best practices for protection.",
+    logoClassName: "scale-110"
+  },
+  {
+    id: "terraform-associate",
+    title: "HashiCorp Certified: Terraform Associate",
+    organization: "HashiCorp",
+    logo: "https://images.credly.com/images/85b9cfc4-257a-4742-878c-4f7ab4a2631b/image.png",
+    date: "2024",
+    description: "Demonstrates knowledge of basic concepts and skills associated with open source HashiCorp Terraform.",
+    logoClassName: "scale-100"
   }
 ];
 

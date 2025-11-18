@@ -134,6 +134,18 @@ const skills: Skill[] = [
     icon: "https://www.svgrepo.com/show/373575/elastic.svg",
     proficiency: 75,
     category: "Monitoring"
+  },
+  {
+    name: "Bitbucket",
+    icon: "https://www.svgrepo.com/show/353454/bitbucket.svg",
+    proficiency: 85,
+    category: "Version Control"
+  },
+  {
+    name: "JumpCloud",
+    icon: "https://companieslogo.com/img/orig/JCLD-7f05e5f8.png",
+    proficiency: 75,
+    category: "Configuration Management"
   }
 ];
 
