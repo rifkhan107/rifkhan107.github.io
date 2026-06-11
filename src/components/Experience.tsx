@@ -4,13 +4,42 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { motion } from "framer-motion";
 import { Calendar, Clock, Briefcase, Star } from "lucide-react";
 
-const experiences = [
+interface ExperienceItem {
+  id: string;
+  title: string;
+  company: string;
+  logo: string;
+  /** Tile color behind the logo — dark for white/light logo art. */
+  logoBg: string;
+  period: string;
+  location: string;
+  description: string[];
+}
+
+const experiences: ExperienceItem[] = [
+  {
+    id: "care-systems",
+    title: "DevOps Engineer",
+    company: "Care Systems, Inc.",
+    logo: "https://caresystemsinc.com/wp-content/uploads/2024/09/CSI-WHITE.png",
+    logoBg: "#0f172a",
+    period: "2024 - Present",
+    location: "United States (Remote)",
+    description: [
+      "Managing and scaling cloud infrastructure for healthcare workforce management solutions",
+      "Building and maintaining CI/CD pipelines for reliable, automated releases",
+      "Automating infrastructure provisioning with Terraform and infrastructure as code practices",
+      "Strengthening security, monitoring, and compliance across cloud environments",
+      "Collaborating with distributed engineering teams to improve reliability and delivery speed"
+    ]
+  },
   {
     id: "ceylon",
     title: "DevOps Engineer - AWS",
     company: "Ceylon Solutions",
-    logo: "https://media.licdn.com/dms/image/v2/C560BAQFa05jN20KuDA/company-logo_200_200/company-logo_200_200/0/1630651612654/ceylon_solutions_logo?e=1764806400&v=beta&t=cF6e6ofFEU5AK2YYWdIsjTmiROHIqjM03XRL0cStfL4",
-    period: "2023 - Present",
+    logo: "https://www.ceylonsolutions.com/wp-content/uploads/2025/11/Symbol-Pink-and-White.png",
+    logoBg: "#13111c",
+    period: "2023 - 2024",
     location: "Colombo District, Sri Lanka",
     description: [
       "Leading AWS cloud infrastructure implementation and optimization",
@@ -24,7 +53,8 @@ const experiences = [
     id: "tech-venturas",
     title: "DevOps Engineer - Azure",
     company: "Tech Venturas",
-    logo: "https://media.licdn.com/dms/image/v2/C560BAQFKdBktaLZF_A/company-logo_200_200/company-logo_200_200/0/1648031425806/tech_venturas_logo?e=1764806400&v=beta&t=iCpcEbUxHJC356Khvvw3WpVZRhZ6BKt-u5Dt0yABZrU",
+    logo: "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFllUQcp0Q3Lqctr3AhqUMWXozAu_w23M9lxFQloqUJLQuOoIuKwhYUdmMAU1hf11GZYuYxVHgYJqVMLp2qRzdm-f9p-l2IdD-j2v19Cu_EHhHTgHWM8qpxsa6eYB3Zi55Oo_Y3=s1360-w1360-h1020-rw",
+    logoBg: "#ffffff",
     period: "2022 - 2023",
     location: "Colombo, Sri Lanka",
     description: [
@@ -39,7 +69,8 @@ const experiences = [
     id: "hsenid",
     title: "Trainee DevOps Engineer",
     company: "hSenid Mobile Solutions",
-    logo: "https://media.licdn.com/dms/image/v2/C4D0BAQFiIq28ZK5wdw/company-logo_200_200/company-logo_200_200/0/1631369941555?e=1764806400&v=beta&t=J6eSft3OwU8sPbMZFBHGG-5afG14yZ9XoHLAZSgXpsY",
+    logo: "https://www.google.com/s2/favicons?domain=hsenidmobile.com&sz=128",
+    logoBg: "#ffffff",
     period: "2021 - 2022",
     location: "Colombo, Sri Lanka",
     description: [
@@ -51,6 +82,42 @@ const experiences = [
     ]
   }
 ];
+
+/** Company logo on a brand-colored tile, with a letter fallback if it fails. */
+const CompanyLogo = ({
+  exp,
+  className
+}: {
+  exp: ExperienceItem;
+  className: string;
+}) => {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return (
+      <span
+        className={`${className} bg-gradient-to-br from-sky-400 to-indigo-500 text-white font-bold flex items-center justify-center`}
+      >
+        {exp.company.charAt(0)}
+      </span>
+    );
+  }
+
+  return (
+    <span
+      className={`${className} flex items-center justify-center overflow-hidden p-1.5`}
+      style={{ backgroundColor: exp.logoBg }}
+    >
+      <img
+        src={exp.logo}
+        alt={exp.company}
+        className="w-full h-full object-contain"
+        loading="lazy"
+        onError={() => setFailed(true)}
+      />
+    </span>
+  );
+};
 
 const Experience = () => {
   const [activeExperience, setActiveExperience] = useState(experiences[0].id);
@@ -128,10 +195,9 @@ const Experience = () => {
                     }`}
                     onClick={() => handleTabClick(exp.id)}
                   >
-                    <img
-                      src={exp.logo}
-                      alt={exp.company}
-                      className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                    <CompanyLogo
+                      exp={exp}
+                      className="w-10 h-10 rounded-full flex-shrink-0"
                     />
                     <div className="min-w-0">
                       <h3 className={`font-medium truncate ${
@@ -173,10 +239,9 @@ const Experience = () => {
                   onClick={() => handleTabClick(exp.id)}
                 >
                   <div className="relative">
-                    <img
-                      src={exp.logo}
-                      alt={exp.company}
-                      className="w-12 h-12 rounded-full object-cover flex-shrink-0 border-2 border-white/30"
+                    <CompanyLogo
+                      exp={exp}
+                      className="w-12 h-12 rounded-full flex-shrink-0 border-2 border-white/30"
                     />
                     {activeExperience === exp.id && (
                       <motion.div 
@@ -241,10 +306,9 @@ const Experience = () => {
                         <span>{activeExp.location}</span>
                       </div>
                     </div>
-                    <img
-                      src={activeExp.logo}
-                      alt={activeExp.company}
-                      className="w-16 h-16 rounded-lg object-cover hidden sm:block border-2 border-white/30 shadow-lg"
+                    <CompanyLogo
+                      exp={activeExp}
+                      className="w-16 h-16 rounded-lg hidden sm:flex border-2 border-white/30 shadow-lg"
                     />
                   </div>
 
