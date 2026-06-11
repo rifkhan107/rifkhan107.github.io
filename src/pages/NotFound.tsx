@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { Home } from "lucide-react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
-import CloudAnimation from "@/components/ui/CloudAnimation";
+import ParticleNetwork from "@/components/ui/ParticleNetwork";
 
 const NotFound = () => {
   const location = useLocation();
@@ -21,7 +21,7 @@ const NotFound = () => {
   return (
     <ThemeProvider defaultTheme="light">
       <div className="min-h-screen bg-background text-foreground flex items-center justify-center p-4">
-        <CloudAnimation />
+        <ParticleNetwork />
         
         <AnimatedCard className="glass-card rounded-2xl p-8 max-w-md w-full text-center">
           <h1 className="text-8xl font-bold text-rifkhan mb-4">404</h1>

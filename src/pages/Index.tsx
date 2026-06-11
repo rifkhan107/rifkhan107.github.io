@@ -12,7 +12,9 @@ import Certifications from "@/components/Certifications";
 import Blog from "@/components/Blog";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import CloudAnimation from "@/components/ui/CloudAnimation";
+import ParticleNetwork from "@/components/ui/ParticleNetwork";
+import CustomCursor from "@/components/ui/CustomCursor";
+import TechMarquee from "@/components/ui/TechMarquee";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
 const Index = () => {
@@ -26,11 +28,13 @@ const Index = () => {
   return (
     <ThemeProvider defaultTheme="light">
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-        <CloudAnimation />
+        <ParticleNetwork />
+        <CustomCursor />
         <Header />
         <AnimatePresence mode="wait">
           <main>
             <Hero />
+            <TechMarquee />
             <About />
             <Experience />
             <Skills />

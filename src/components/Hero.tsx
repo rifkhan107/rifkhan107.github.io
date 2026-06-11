@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { animate, motion, useInView } from "framer-motion";
 import AnimatedCard from "@/components/ui/AnimatedCard";
+import Magnetic from "@/components/ui/Magnetic";
 
 const typewriterTexts = [
   "DevOps Engineer",
@@ -24,6 +25,51 @@ const itemVariants = {
     filter: "blur(0px)",
     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
   }
+};
+
+const orbitIcons = [
+  { name: "AWS", icon: "/icons/aws.svg" },
+  { name: "Kubernetes", icon: "/icons/kubernetes.svg" },
+  { name: "Terraform", icon: "/icons/terraform.svg" },
+  { name: "Docker", icon: "/icons/docker.svg" }
+];
+
+const orbitPositions = [
+  { top: "0%", left: "50%", translate: "-50% -50%" },
+  { top: "50%", left: "100%", translate: "-50% -50%" },
+  { top: "100%", left: "50%", translate: "-50% -50%" },
+  { top: "50%", left: "0%", translate: "-50% -50%" }
+];
+
+const stats = [
+  { value: 4, suffix: "+", label: "Years Experience" },
+  { value: 11, suffix: "", label: "Certifications" },
+  { value: 3, suffix: "", label: "Cloud Platforms" },
+  { value: 20, suffix: "+", label: "Tools & Tech" }
+];
+
+const CountUp = ({ to, suffix }: { to: number; suffix: string }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+
+  useEffect(() => {
+    if (!inView || !ref.current) return;
+    const controls = animate(0, to, {
+      duration: 1.8,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => {
+        if (ref.current) ref.current.textContent = `${Math.round(v)}`;
+      }
+    });
+    return () => controls.stop();
+  }, [inView, to]);
+
+  return (
+    <span className="text-gradient text-3xl md:text-4xl font-bold tabular-nums">
+      <span ref={ref}>0</span>
+      {suffix}
+    </span>
+  );
 };
 
 const Hero = () => {
@@ -77,8 +123,8 @@ const Hero = () => {
       <div className="container mx-auto px-4 relative z-10 flex flex-col items-center justify-center">
         <AnimatedCard className="glass-card rounded-3xl p-8 md:p-12 max-w-4xl mx-auto text-center" intensity={4}>
           <motion.div variants={containerVariants} initial="hidden" animate="visible">
-            {/* Avatar with rotating gradient ring */}
-            <motion.div variants={itemVariants} className="mb-6 relative inline-block">
+            {/* Avatar with rotating gradient ring + orbiting tech icons */}
+            <motion.div variants={itemVariants} className="mb-10 relative inline-block">
               <div className="relative w-36 h-36 md:w-44 md:h-44 mx-auto">
                 <div className="absolute -inset-1.5 rounded-full bg-[conic-gradient(from_0deg,#38BDF8,#6366F1,#22D3EE,#38BDF8)] animate-spin-slow" />
                 <div className="absolute -inset-1.5 rounded-full bg-[conic-gradient(from_0deg,#38BDF8,#6366F1,#22D3EE,#38BDF8)] blur-md opacity-60 animate-spin-slow" />
@@ -93,6 +139,29 @@ const Hero = () => {
                     }}
                   />
                 </div>
+
+                {/* Orbiting tech icons */}
+                <motion.div
+                  className="absolute -inset-8 md:-inset-10 rounded-full border border-dashed border-rifkhan/30"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+                >
+                  {orbitIcons.map((tech, i) => (
+                    <div
+                      key={tech.name}
+                      className="absolute"
+                      style={{ ...orbitPositions[i] }}
+                    >
+                      <motion.div
+                        className="flex w-9 h-9 md:w-10 md:h-10 items-center justify-center rounded-full bg-white shadow-lg shadow-rifkhan/20 border border-rifkhan/10 p-1.5"
+                        animate={{ rotate: -360 }}
+                        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+                      >
+                        <img src={tech.icon} alt={tech.name} className="w-full h-full object-contain" />
+                      </motion.div>
+                    </div>
+                  ))}
+                </motion.div>
                 {/* Status badge */}
                 <motion.div
                   className="absolute bottom-1 right-1 flex items-center justify-center w-8 h-8 rounded-full bg-background shadow-lg"
@@ -134,24 +203,28 @@ const Hero = () => {
               variants={itemVariants}
               className="flex items-center justify-center space-x-4 mb-8"
             >
-              <motion.a
-                href="#about"
-                className="btn-shine px-6 py-3 rounded-xl text-white font-medium shadow-lg shadow-rifkhan/30 bg-gradient-to-r from-sky-500 via-rifkhan to-indigo-500 bg-[length:200%_auto] animate-gradient-x"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                Discover More
-              </motion.a>
-              <motion.a
-                href="#contact"
-                className="px-6 py-3 bg-transparent border border-rifkhan text-rifkhan rounded-xl font-medium hover:bg-rifkhan/10 transition-colors"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                Get in Touch
-              </motion.a>
+              <Magnetic>
+                <motion.a
+                  href="#about"
+                  className="btn-shine inline-block px-6 py-3 rounded-xl text-white font-medium shadow-lg shadow-rifkhan/30 bg-gradient-to-r from-sky-500 via-rifkhan to-indigo-500 bg-[length:200%_auto] animate-gradient-x"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  Discover More
+                </motion.a>
+              </Magnetic>
+              <Magnetic>
+                <motion.a
+                  href="#contact"
+                  className="inline-block px-6 py-3 bg-transparent border border-rifkhan text-rifkhan rounded-xl font-medium hover:bg-rifkhan/10 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  Get in Touch
+                </motion.a>
+              </Magnetic>
             </motion.div>
 
             <motion.div
@@ -190,6 +263,21 @@ const Hero = () => {
                     <path d={social.path} />
                   </svg>
                 </motion.a>
+              ))}
+            </motion.div>
+
+            {/* Animated stat counters */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-10 pt-8 border-t border-foreground/10 grid grid-cols-2 md:grid-cols-4 gap-6"
+            >
+              {stats.map((stat) => (
+                <div key={stat.label} className="flex flex-col items-center">
+                  <CountUp to={stat.value} suffix={stat.suffix} />
+                  <span className="text-xs md:text-sm text-foreground/60 mt-1 font-medium uppercase tracking-wider">
+                    {stat.label}
+                  </span>
+                </div>
               ))}
             </motion.div>
           </motion.div>
