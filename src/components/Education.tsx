@@ -1,5 +1,7 @@
 
 import AnimatedCard from "@/components/ui/AnimatedCard";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/motion";
 import { GraduationCap, MapPin, Calendar } from "lucide-react";
 
 const Education = () => {
@@ -9,13 +11,10 @@ const Education = () => {
       className="py-20 md:py-28 relative bg-accent/50"
     >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <span className="chip mb-4">My Academic Background</span>
-          <h2 className="section-title">Education</h2>
-        </div>
-        
-        <div className="max-w-5xl mx-auto">
-          <AnimatedCard className="glass-card rounded-2xl p-8 lg:p-10">
+        <SectionHeading chip="My Academic Background" title="Education" />
+
+        <Reveal className="max-w-5xl mx-auto">
+          <AnimatedCard className="glass-card glass-card-hover rounded-2xl p-8 lg:p-10">
             <div className="flex flex-col md:flex-row md:items-start gap-6">
               <div className="flex-shrink-0 flex items-center justify-center">
                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-accent flex items-center justify-center">
@@ -63,7 +62,7 @@ const Education = () => {
               </div>
             </div>
           </AnimatedCard>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

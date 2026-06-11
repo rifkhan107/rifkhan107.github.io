@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { motion } from "framer-motion";
 import { Calendar, Clock, Briefcase, Star } from "lucide-react";
 
@@ -101,10 +102,7 @@ const Experience = () => {
       className="py-20 md:py-28 relative bg-accent/50"
     >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <span className="chip mb-4">My Journey</span>
-          <h2 className="section-title">Professional Experience</h2>
-        </div>
+        <SectionHeading chip="My Journey" title="Professional Experience" />
 
         <div className="max-w-6xl mx-auto">
           {/* 3D Cards Layout */}

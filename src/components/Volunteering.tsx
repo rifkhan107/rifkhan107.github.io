@@ -1,5 +1,7 @@
 
 import AnimatedCard from "@/components/ui/AnimatedCard";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/motion";
 import { CalendarClock, Globe, Users } from "lucide-react";
 
 const Volunteering = () => {
@@ -9,14 +11,12 @@ const Volunteering = () => {
       className="py-20 md:py-28 relative"
     >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <span className="chip mb-4">Community Involvement</span>
-          <h2 className="section-title">Volunteering</h2>
-        </div>
-        
+        <SectionHeading chip="Community Involvement" title="Volunteering" />
+
         <div className="max-w-5xl mx-auto space-y-8">
           {/* AWS Community Builder */}
-          <AnimatedCard className="glass-card rounded-2xl p-8 lg:p-10">
+          <Reveal>
+          <AnimatedCard className="glass-card glass-card-hover rounded-2xl p-8 lg:p-10">
             <div className="flex flex-col md:flex-row md:items-start gap-6">
               <div className="flex-shrink-0 flex items-center justify-center">
                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-[#232F3E] flex items-center justify-center p-4">
@@ -101,9 +101,11 @@ const Volunteering = () => {
               </div>
             </div>
           </AnimatedCard>
-          
+          </Reveal>
+
           {/* TryHackMe */}
-          <AnimatedCard className="glass-card rounded-2xl p-8 lg:p-10">
+          <Reveal delay={0.1}>
+          <AnimatedCard className="glass-card glass-card-hover rounded-2xl p-8 lg:p-10">
             <div className="flex flex-col md:flex-row md:items-start gap-6">
               <div className="flex-shrink-0 flex items-center justify-center">
                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-[#1A1A1A] flex items-center justify-center p-4">
@@ -152,6 +154,7 @@ const Volunteering = () => {
               </div>
             </div>
           </AnimatedCard>
+          </Reveal>
         </div>
       </div>
     </section>
