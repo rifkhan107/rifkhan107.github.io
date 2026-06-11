@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import AnimatedCard from "@/components/ui/AnimatedCard";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { Stagger, StaggerItem } from "@/components/ui/motion";
 import { Award } from "lucide-react";
 
 interface Certification {
@@ -81,55 +84,69 @@ const Certifications = () => {
       className="py-20 md:py-28 relative bg-accent/50"
     >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <span className="chip mb-4">Achievements</span>
-          <h2 className="section-title">Certifications</h2>
-        </div>
-        
-        <div className="max-w-4xl mx-auto grid gap-6">
+        <SectionHeading chip="Achievements" title="Certifications" />
+
+        <Stagger className="max-w-4xl mx-auto grid gap-6">
           {certifications.map((cert) => (
-            <AnimatedCard
-              key={cert.id}
-              className={`glass-card rounded-xl p-6 transition-all duration-300 cursor-pointer ${
-                activeCert === cert.id ? "shadow-lg" : ""
-              }`}
-              onClick={() => toggleCert(cert.id)}
-            >
-              <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 rounded-full overflow-hidden bg-white flex items-center justify-center p-2 shadow-sm">
-                  <img
-                    src={cert.logo}
-                    alt={cert.organization}
-                    className={`w-full h-full object-contain ${cert.logoClassName || ""}`}
-                    loading="lazy"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=200&h=200&fit=crop";
-                    }}
-                  />
+            <StaggerItem key={cert.id}>
+              <AnimatedCard
+                className={`glass-card glass-card-hover rounded-xl p-6 transition-all duration-300 cursor-pointer ${
+                  activeCert === cert.id ? "shadow-lg border-rifkhan/30" : ""
+                }`}
+                onClick={() => toggleCert(cert.id)}
+              >
+                <div className="flex items-center space-x-4">
+                  <motion.div
+                    className="w-16 h-16 rounded-full overflow-hidden bg-white flex items-center justify-center p-2 shadow-sm"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  >
+                    <img
+                      src={cert.logo}
+                      alt={cert.organization}
+                      className={`w-full h-full object-contain ${cert.logoClassName || ""}`}
+                      loading="lazy"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=200&h=200&fit=crop";
+                      }}
+                    />
+                  </motion.div>
+
+                  <div className="flex-1">
+                    <h3 className="font-bold text-lg text-foreground">{cert.title}</h3>
+                    <p className="text-rifkhan">{cert.organization}</p>
+                    <p className="text-sm text-foreground/60">Issued {cert.date}</p>
+                  </div>
+
+                  <motion.div
+                    className="text-rifkhan"
+                    animate={{ rotate: activeCert === cert.id ? 180 : 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <Award />
+                  </motion.div>
                 </div>
-                
-                <div className="flex-1">
-                  <h3 className="font-bold text-lg text-foreground">{cert.title}</h3>
-                  <p className="text-rifkhan">{cert.organization}</p>
-                  <p className="text-sm text-foreground/60">Issued {cert.date}</p>
-                </div>
-                
-                <div className="text-rifkhan">
-                  <Award className={`transition-transform duration-300 ${
-                    activeCert === cert.id ? "rotate-180" : ""
-                  }`} />
-                </div>
-              </div>
-              
-              {activeCert === cert.id && (
-                <div className="mt-4 pt-4 border-t border-border/50 text-foreground/80 animate-fade-in">
-                  {cert.description}
-                </div>
-              )}
-            </AnimatedCard>
+
+                <AnimatePresence initial={false}>
+                  {activeCert === cert.id && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mt-4 pt-4 border-t border-border/50 text-foreground/80">
+                        {cert.description}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </AnimatedCard>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen, ExternalLink, Calendar, Tag } from "lucide-react";
 import AnimatedCard from "@/components/ui/AnimatedCard";
+import SectionHeading from "@/components/ui/SectionHeading";
 import { motion } from "framer-motion";
 
 // Define the type for blog posts
@@ -61,14 +62,11 @@ const Blog = () => {
   return (
     <section id="blog" className="py-20 md:py-28 relative">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <span className="chip mb-4">Knowledge Sharing</span>
-          <h2 className="section-title">My Blog</h2>
-          <p className="max-w-2xl mx-auto text-foreground/70 mt-4">
-            Explore my technical articles and tutorials about AWS, DevOps, Cloud Computing, 
-            and more on dev.to.
-          </p>
-        </div>
+        <SectionHeading
+          chip="Knowledge Sharing"
+          title="My Blog"
+          description="Explore my technical articles and tutorials about AWS, DevOps, Cloud Computing, and more on dev.to."
+        />
 
         {loading ? (
           <div className="flex justify-center items-center h-40">
