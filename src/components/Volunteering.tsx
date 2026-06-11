@@ -19,11 +19,16 @@ const Volunteering = () => {
           <AnimatedCard className="glass-card glass-card-hover rounded-2xl p-8 lg:p-10">
             <div className="flex flex-col md:flex-row md:items-start gap-6">
               <div className="flex-shrink-0 flex items-center justify-center">
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-[#232F3E] flex items-center justify-center p-4">
-                  <img 
-                    src="https://d1.awsstatic.com/logos/aws-logo-lockups/poweredbyaws/PB_AWS_logo_RGB_stacked_REV_SQ.91cd4af40773cbfbd15577a3c2b8a346fe3e8fa2.png" 
-                    alt="Amazon Web Services" 
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-white flex items-center justify-center p-2 shadow-inner">
+                  <img
+                    src="https://dev-to-uploads.s3.amazonaws.com/uploads/organization/profile_image/2794/88da75b6-aadd-4ea1-8083-ae2dfca8be94.png"
+                    alt="AWS Community Builders"
                     className="w-full h-full object-contain"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "/icons/aws.svg";
+                      target.className = "w-full h-full object-contain p-2";
+                    }}
                   />
                 </div>
               </div>

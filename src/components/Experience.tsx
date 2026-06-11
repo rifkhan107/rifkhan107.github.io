@@ -149,7 +149,17 @@ const Experience = () => {
             </div>
 
             {/* Experience selection - Desktop version */}
-            <div className="hidden md:col-span-4 md:flex md:flex-col md:space-y-2">
+            <div className="hidden md:col-span-4 md:flex md:flex-col md:space-y-2 relative pl-4">
+              {/* Scroll-drawn timeline beam */}
+              <div className="absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-foreground/10 overflow-hidden">
+                <motion.div
+                  className="w-full h-full origin-top rounded-full bg-gradient-to-b from-sky-400 via-rifkhan to-indigo-500"
+                  initial={{ scaleY: 0 }}
+                  whileInView={{ scaleY: 1 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                />
+              </div>
               {experiences.map((exp, index) => (
                 <motion.div
                   key={exp.id}

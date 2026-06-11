@@ -10,154 +10,69 @@ interface Skill {
 }
 
 const skills: Skill[] = [
-  {
-    name: "AWS",
-    icon: "https://www.svgrepo.com/show/448266/aws.svg", 
-    proficiency: 90,
-    category: "Cloud"
-  },
-  {
-    name: "Azure",
-    icon: "https://www.svgrepo.com/show/452062/microsoft.svg",
-    proficiency: 85,
-    category: "Cloud"
-  },
-  {
-    name: "GCP",
-    icon: "https://www.svgrepo.com/show/448223/gcp.svg",
-    proficiency: 75,
-    category: "Cloud"
-  },
-  {
-    name: "Terraform",
-    icon: "https://www.svgrepo.com/show/354447/terraform-icon.svg",
-    proficiency: 90,
-    category: "IaC"
-  },
-  {
-    name: "Kubernetes",
-    icon: "https://www.svgrepo.com/show/448233/kubernetes.svg",
-    proficiency: 85,
-    category: "Container Orchestration"
-  },
-  {
-    name: "Docker",
-    icon: "https://www.svgrepo.com/show/452192/docker.svg",
-    proficiency: 90,
-    category: "Containerization"
-  },
-  {
-    name: "Helm",
-    icon: "https://www.svgrepo.com/show/448231/helm.svg",
-    proficiency: 80,
-    category: "Container Orchestration"
-  },
-  {
-    name: "Jenkins",
-    icon: "https://www.svgrepo.com/show/373699/jenkins.svg",
-    proficiency: 80,
-    category: "CI/CD"
-  },
-  {
-    name: "GitHub Actions",
-    icon: "https://www.svgrepo.com/show/512317/github-142.svg",
-    proficiency: 85,
-    category: "CI/CD"
-  },
-  {
-    name: "GitLab CI/CD",
-    icon: "https://www.svgrepo.com/show/353785/gitlab.svg", 
-    proficiency: 80,
-    category: "CI/CD"
-  },
-  {
-    name: "Ansible",
-    icon: "https://www.svgrepo.com/show/373429/ansible.svg",
-    proficiency: 75,
-    category: "Configuration Management"
-  },
-  {
-    name: "Git",
-    icon: "https://www.svgrepo.com/show/452210/git.svg",
-    proficiency: 90,
-    category: "Version Control"
-  },
-  {
-    name: "Linux",
-    icon: "https://www.svgrepo.com/show/448236/linux.svg",
-    proficiency: 90,
-    category: "Operating System"
-  },
-  {
-    name: "Python",
-    icon: "https://www.svgrepo.com/show/452091/python.svg",
-    proficiency: 80,
-    category: "Programming"
-  },
-  {
-    name: "Bash",
-    icon: "https://www.svgrepo.com/show/353478/bash-icon.svg",
-    proficiency: 85,
-    category: "Programming"
-  },
-  {
-    name: "AWS CloudFormation",
-    icon: "https://images.seeklogo.com/logo-png/43/2/aws-cloudformation-logo-png_seeklogo-430935.png",
-    proficiency: 85,
-    category: "IaC"
-  },
-  {
-    name: "Azure DevOps",
-    icon: "https://www.svgrepo.com/show/448271/azure-devops.svg",
-    proficiency: 85,
-    category: "CI/CD"
-  },
-  {
-    name: "Prometheus",
-    icon: "https://www.svgrepo.com/show/354219/prometheus.svg",
-    proficiency: 80,
-    category: "Monitoring"
-  },
-  {
-    name: "Grafana",
-    icon: "https://www.svgrepo.com/show/448228/grafana.svg",
-    proficiency: 80,
-    category: "Monitoring"
-  },
-  {
-    name: "Datadog",
-    icon: "https://www.svgrepo.com/show/448219/datadog.svg",
-    proficiency: 75,
-    category: "Monitoring"
-  },
-  {
-    name: "ELK Stack",
-    icon: "https://www.svgrepo.com/show/373575/elastic.svg",
-    proficiency: 75,
-    category: "Monitoring"
-  },
-  {
-    name: "Bitbucket",
-    icon: "https://www.svgrepo.com/show/353454/bitbucket.svg",
-    proficiency: 85,
-    category: "Version Control"
-  },
-  {
-    name: "JumpCloud",
-    icon: "https://companieslogo.com/img/orig/JCLD-7f05e5f8.png",
-    proficiency: 75,
-    category: "Configuration Management"
-  }
+  { name: "AWS", icon: "/icons/aws.svg", proficiency: 90, category: "Cloud" },
+  { name: "Azure", icon: "/icons/azure.svg", proficiency: 85, category: "Cloud" },
+  { name: "GCP", icon: "/icons/gcp.svg", proficiency: 75, category: "Cloud" },
+  { name: "Terraform", icon: "/icons/terraform.svg", proficiency: 90, category: "IaC" },
+  { name: "Kubernetes", icon: "/icons/kubernetes.svg", proficiency: 85, category: "Container Orchestration" },
+  { name: "Docker", icon: "/icons/docker.svg", proficiency: 90, category: "Containerization" },
+  { name: "Helm", icon: "/icons/helm.svg", proficiency: 80, category: "Container Orchestration" },
+  { name: "Jenkins", icon: "/icons/jenkins.svg", proficiency: 80, category: "CI/CD" },
+  { name: "GitHub Actions", icon: "/icons/github-actions.svg", proficiency: 85, category: "CI/CD" },
+  { name: "GitLab CI/CD", icon: "/icons/gitlab.svg", proficiency: 80, category: "CI/CD" },
+  { name: "Ansible", icon: "/icons/ansible.svg", proficiency: 75, category: "Configuration Management" },
+  { name: "Git", icon: "/icons/git.svg", proficiency: 90, category: "Version Control" },
+  { name: "Linux", icon: "/icons/linux.svg", proficiency: 90, category: "Operating System" },
+  { name: "Python", icon: "/icons/python.svg", proficiency: 80, category: "Programming" },
+  { name: "Bash", icon: "/icons/bash.svg", proficiency: 85, category: "Programming" },
+  { name: "AWS CloudFormation", icon: "/icons/aws.svg", proficiency: 85, category: "IaC" },
+  { name: "Azure DevOps", icon: "/icons/azure-devops.svg", proficiency: 85, category: "CI/CD" },
+  { name: "Prometheus", icon: "/icons/prometheus.svg", proficiency: 80, category: "Monitoring" },
+  { name: "Grafana", icon: "/icons/grafana.svg", proficiency: 80, category: "Monitoring" },
+  { name: "Datadog", icon: "/icons/datadog.svg", proficiency: 75, category: "Monitoring" },
+  { name: "ELK Stack", icon: "/icons/elastic.svg", proficiency: 75, category: "Monitoring" },
+  { name: "Bitbucket", icon: "/icons/bitbucket.svg", proficiency: 85, category: "Version Control" },
+  { name: "JumpCloud", icon: "https://www.google.com/s2/favicons?domain=jumpcloud.com&sz=128", proficiency: 75, category: "Configuration Management" }
 ];
 
 const categories = Array.from(new Set(skills.map(skill => skill.category)));
 
+/** Skill logo with a gradient letter-tile fallback if the image fails. */
+const SkillIcon = ({ skill }: { skill: Skill }) => {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return (
+      <span className="w-8 h-8 rounded-md bg-gradient-to-br from-sky-400 to-indigo-500 text-white text-sm font-bold flex items-center justify-center">
+        {skill.name.charAt(0)}
+      </span>
+    );
+  }
+
+  return (
+    <img
+      src={skill.icon}
+      alt={skill.name}
+      className="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  );
+};
+
 const Skills = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  
+
   const filteredSkills = selectedCategory === "All"
     ? skills
     : skills.filter(skill => skill.category === selectedCategory);
+
+  const handleSpotlight = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty("--sx", `${e.clientX - rect.left}px`);
+    card.style.setProperty("--sy", `${e.clientY - rect.top}px`);
+  };
 
   return (
     <section
@@ -216,19 +131,24 @@ const Skills = () => {
                   ease: [0.16, 1, 0.3, 1]
                 }}
                 whileHover={{ y: -6 }}
-                className="glass-card glass-card-hover rounded-xl p-6 group"
+                onMouseMove={handleSpotlight}
+                className="relative glass-card glass-card-hover rounded-xl p-6 group overflow-hidden"
               >
-                <div className="flex items-center space-x-4 mb-4">
+                {/* Cursor spotlight */}
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background:
+                      "radial-gradient(220px circle at var(--sx, 50%) var(--sy, 50%), rgba(14,165,233,0.16), transparent 70%)"
+                  }}
+                />
+
+                <div className="relative flex items-center space-x-4 mb-4">
                   <motion.div
                     className="w-12 h-12 flex items-center justify-center bg-white rounded-lg shadow-sm"
                     whileHover={{ rotate: [0, -8, 8, 0], transition: { duration: 0.4 } }}
                   >
-                    <img
-                      src={skill.icon}
-                      alt={skill.name}
-                      className="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
-                      loading="lazy"
-                    />
+                    <SkillIcon skill={skill} />
                   </motion.div>
                   <div>
                     <h3 className="font-bold text-foreground">{skill.name}</h3>
@@ -236,7 +156,7 @@ const Skills = () => {
                   </div>
                 </div>
 
-                <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
+                <div className="relative w-full bg-muted rounded-full h-2 overflow-hidden">
                   <motion.div
                     className="relative h-2 rounded-full bg-gradient-to-r from-sky-400 to-indigo-500 overflow-hidden"
                     initial={{ width: 0 }}
@@ -247,7 +167,7 @@ const Skills = () => {
                     <span className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-shimmer" />
                   </motion.div>
                 </div>
-                <p className="text-right text-sm text-foreground/70 mt-1">
+                <p className="relative text-right text-sm text-foreground/70 mt-1">
                   {skill.proficiency}%
                 </p>
               </motion.div>

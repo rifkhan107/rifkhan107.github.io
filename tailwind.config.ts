@@ -128,6 +128,10 @@ export default {
 				'scroll-wheel': {
 					'0%': { opacity: '1', transform: 'translateY(0)' },
 					'100%': { opacity: '0', transform: 'translateY(10px)' }
+				},
+				'marquee': {
+					'0%': { transform: 'translateX(0)' },
+					'100%': { transform: 'translateX(-50%)' }
 				}
 			},
 			animation: {
@@ -141,7 +145,8 @@ export default {
 				'gradient-x': 'gradient-x 6s ease infinite',
 				'blob': 'blob 18s ease-in-out infinite',
 				'shimmer': 'shimmer 2.5s ease-in-out infinite',
-				'scroll-wheel': 'scroll-wheel 1.5s ease-in-out infinite'
+				'scroll-wheel': 'scroll-wheel 1.5s ease-in-out infinite',
+				'marquee': 'marquee 38s linear infinite'
 			}
 		}
 	},

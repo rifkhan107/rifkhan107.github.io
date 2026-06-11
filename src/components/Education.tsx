@@ -17,14 +17,15 @@ const Education = () => {
           <AnimatedCard className="glass-card glass-card-hover rounded-2xl p-8 lg:p-10">
             <div className="flex flex-col md:flex-row md:items-start gap-6">
               <div className="flex-shrink-0 flex items-center justify-center">
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-accent flex items-center justify-center">
-                  <img 
-                    src="https://www.sunderland.ac.uk/static/images/sunderland_logo.svg" 
-                    alt="University of Sunderland" 
-                    className="w-20 h-20 md:w-28 md:h-28 object-contain"
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-white flex items-center justify-center p-3 shadow-inner">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/7/77/Logo_Sunderland.svg"
+                    alt="University of Sunderland"
+                    className="w-full h-full object-contain"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
-                      target.src = "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=200&h=200&fit=crop";
+                      target.outerHTML =
+                        '<span class="flex w-full h-full items-center justify-center rounded-lg bg-gradient-to-br from-sky-400 to-indigo-500 text-white text-2xl font-bold">UoS</span>';
                     }}
                   />
                 </div>
